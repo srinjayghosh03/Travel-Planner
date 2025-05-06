@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Top 10 Loved Destinations in India</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom animations */
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(-50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes fadeSlideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-slideIn {
+            animation: slideIn 0.8s ease-out forwards;
+        }
+        .animate-fadeSlideUp {
+            animation: fadeSlideUp 0.6s ease-out forwards;
+        }
+        .hover-glow {
+            transition: transform 0.3s ease, box-shadow 0.3s ease, color 0.3s ease;
+        }
+        .hover-glow:hover {
+            transform: scale(1.03);
+            box-shadow: 0 0 15px rgba(20, 184, 166, 0.5);
+            color: #1d4ed8;
+        }
+        .active-button {
+            background-color: #14b8a6;
+            color: white;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        /* Gradient background */
+        body {
+            background: linear-gradient(135deg, #a1c4fd, #c2e9fb);
+        }
+        /* Hero section with patterned background */
+        .hero {
+            background: linear-gradient(180deg, rgba(0, 172, 193, 0.9), rgba(255, 255, 255, 0.3)), url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"%3E%3Cpath fill="none" stroke="%23FFFFFF" stroke-width="15" d="M40 40h120M40 100h120M40 160h120M40 40v120M100 40v120M160 40v120"/%3E%3C/svg%3E');
+            background-size: cover;
+            border-radius: 1.5rem;
+        }
+        /* Smooth typography */
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+        }
+        p, li, button {
+            font-family: 'Poppins', sans-serif;
+        }
+        /* Decorative underline for destination names */
+        .destination-button {
+            position: relative;
+            display: inline-block;
+            padding-bottom: 8px;
+        }
+        .destination-button::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 3px;
+            bottom: 0;
+            left: 0;
+            background-color: #14b8a6;
+            transition: width 0.3s ease;
+        }
+        .destination-button:hover::after {
+            width: 100%;
+        }
+        /* Image styling */
+        .destination-img {
+            width: 48px;
+            height: 48px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-right: 12px;
+            transition: transform 0.3s ease;
+        }
+        .destination-img:hover {
+            transform: scale(1.1);
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body class="min-h-screen flex flex-col">
+    <!-- Header -->
+    <header class="bg-teal-900 text-white py-4 shadow-lg sticky top-0 z-10">
+        <div class="container mx-auto flex justify-between items-center px-6">
+            <div>
+                <h1 class="text-4xl font-bold">Travel Planner</h1>
+                <p class="text-sm font-light">Journey Beyond, Plan with Ease</p>
+            </div>
+            <nav>
+                <ul class="flex space-x-8">
+                    <li><a href="#" class="text-lg hover:text-teal-300 transition-colors">Travel Planner</a></li>
+                    <li><a href="#" class="text-lg hover:text-teal-300 transition-colors">Top Destinations</a></li>
+                    <li><a href="#" class="text-lg hover:text-teal-300 transition-colors">About</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container mx-auto p-6 flex-grow">
+        <!-- Hero Section -->
+        <div class="hero text-center py-12 mb-12 animate-slideIn">
+            <h1 class="text-6xl font-bold text-teal-800 mb-4">Top 10 Loved Destinations in India</h1>
+            <p class="text-xl text-gray-700 max-w-2xl mx-auto">Uncover the magic of India’s most cherished destinations, each offering a unique blend of culture, history, and natural beauty.</p>
+        </div>
+
+        <!-- Destinations List -->
+        <div class="bg-white p-10 rounded-2xl shadow-2xl mb-12 max-w-4xl mx-auto">
+            <h2 class="text-4xl font-semibold mb-8 text-teal-700">India’s Favorite Destinations</h2>
+            <div id="destinationsList" class="space-y-4">
+                <div class="animate-slideIn flex items-center">
+                    <!-- Image placeholder for Taj Mahal, Agra -->
+                    <img src="taj-mahal-placeholder.jpg" alt="Taj Mahal at sunrise with its white marble structure reflecting in the pool" class="destination-img">
+                    <!-- Source high-resolution images from Unsplash (web:0, web:11), Getty Images (web:3), or Pixabay (web:4, web:18) -->
+                    <button id="btn-TajMahalAgra" class="destination-button text-2xl font-bold text-teal-600 hover-glow" onclick="showDetails('Taj Mahal, Agra')">1. Taj Mahal, Agra</button>
+                </div>
+                <div class="animate-slideIn flex items-center" style="animation-delay: 0.2s;">
+                    <!-- Image placeholder for Jaipur -->
+                    <img src="jaipur-placeholder.jpg" alt="Amber Fort in Jaipur with its golden sandstone walls at sunset" class="destination-img">
+                    <!-- Source high-resolution images from Getty Images (web:3, web:9), iStock (web:21), or Dreamstime (web:22) -->
+                    <button id="btn-Jaipur" class="destination-button text-2xl font-bold text-teal-600 hover-glow" onclick="showDetails('Jaipur')">2. Jaipur</button>
+                </div>
+                <div class="animate-slideIn flex items-center" style="animation-delay: 0.4s;">
+                    <!-- Image placeholder for Varanasi -->
+                    <img src="varanasi-placeholder.jpg" alt="Varanasi ghats at sunrise with boats on the Ganges River" class="destination-img">
+                    <!-- Source high-resolution images from Getty Images (web:3, web:9), iStock (web:21), or Dreamstime (web:22) -->
+                    <button id="btn-Varanasi" class="destination-button text-2xl font-bold text-teal-600 hover-glow" onclick="showDetails('Varanasi')">3. Varanasi</button>
+                </div>
+                <div class="animate-slideIn flex items-center" style="animation-delay: 0.6s;">
+                    <!-- Image placeholder for Kerala -->
+                    <img src="kerala-placeholder.jpg" alt="Kerala backwaters with a houseboat cruising through palm-fringed canals" class="destination-img">
+                    <!-- Source high-resolution images from Getty Images (web:3), iStock (web:21), or Dreamstime (web:22) -->
+                    <button id="btn-Kerala" class="destination-button text-2xl font-bold text-teal-600 hover-glow" onclick="showDetails('Kerala')">4. Kerala</button>
+                </div>
+                <div class="animate-slideIn flex items-center" style="animation-delay: 0.8s;">
+                    <!-- Image placeholder for Goa -->
+                    <img src="goa-placeholder.jpg" alt="Palolem Beach in Goa with golden sands and turquoise waters at sunset" class="destination-img">
+                    <!-- Source high-resolution images from Getty Images (web:9) or iStock (web:21) -->
+                    <button id="btn-Goa" class="destination-button text-2xl font-bold text-teal-600 hover-glow" onclick="showDetails('Goa')">5. Goa</button>
+                </div>
+                <div class="animate-slideIn flex items-center" style="animation-delay: 1s;">
+                    <!-- Image placeholder for Udaipur -->
+                    <img src="udaipur-placeholder.jpg" alt="Lake Pichola in Udaipur with the City Palace reflecting on the water" class="destination-img">
+                    <!-- Source high-resolution images from Getty Images (web:3), iStock (web:21), or Dreamstime (web:22) -->
+                    <button id="btn-Udaipur" class="destination-button text-2xl font-bold text-teal-600 hover-glow" onclick="showDetails('Udaipur')">6. Udaipur</button>
+                </div>
+                <div class="animate-slideIn flex items-center" style="animation-delay: 1.2s;">
+                    <!-- Image placeholder for Mysore -->
+                    <img src="mysore-placeholder.jpg" alt="Mysore Palace illuminated with thousands of lights during Dussehra" class="destination-img">
+                    <!-- Source high-resolution images from Getty Images (web:9) or iStock (web:21) -->
+                    <button id="btn-Mysore" class="destination-button text-2xl font-bold text-teal-600 hover-glow" onclick="showDetails('Mysore')">7. Mysore</button>
+                </div>
+                <div class="animate-slideIn flex items-center" style="animation-delay: 1.4s;">
+                    <!-- Image placeholder for Ladakh -->
+                    <img src="ladakh-placeholder.jpg" alt="Pangong Lake in Ladakh with vibrant blue waters and snow-capped mountains" class="destination-img">
+                    <!-- Source high-resolution images from Getty Images (web:9), iStock (web:21), or posts on X (@grok, 2025-05-04) -->
+                    <button id="btn-Ladakh" class="destination-button text-2xl font-bold text-teal-600 hover-glow" onclick="showDetails('Ladakh')">8. Ladakh</button>
+                </div>
+                <div class="animate-slideIn flex items-center" style="animation-delay: 1.6s;">
+                    <!-- Image placeholder for Cherrapunji -->
+                    <img src="cherrapunji-placeholder.jpg" alt="Nohkalikai Falls in Cherrapunji with mist and lush greenery" class="destination-img">
+                    <!-- Source high-resolution images from Getty Images (web:9) or iStock (web:21) -->
+                    <button id="btn-Cherrapunji" class="destination-button text-2xl font-bold text-teal-600 hover-glow" onclick="showDetails('Cherrapunji')">9. Cherrapunji</button>
+                </div>
+                <div class="animate-slideIn flex items-center" style="animation-delay: 1.8s;">
+                    <!-- Image placeholder for Darjeeling -->
+                    <img src="darjeeling-placeholder.jpg" alt="Darjeeling tea plantations with views of Kanchenjunga at sunrise" class="destination-img">
+                    <!-- Source high-resolution images from Getty Images (web:9) or iStock (web:21) -->
+                    <button id="btn-Darjeeling" class="destination-button text-2xl font-bold text-teal-600 hover-glow" onclick="showDetails('Darjeeling')">10. Darjeeling</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Details Section -->
+        <div id="details" class="bg-white p-10 rounded-2xl shadow-2xl max-w-4xl mx-auto hidden animate-fadeSlideUp">
+            <h2 class="text-4xl font-semibold mb-8 text-teal-700">Destination Details</h2>
+            <div id="destinationDetails">
+                <h3 class="text-3xl font-bold mb-4 text-gray-800"><span id="destName"></span></h3>
+                <p id="destDescription" class="text-gray-700 mb-8 leading-relaxed"></p>
+
+                <h3 class="text-3xl font-bold mb-4 text-gray-800">Location</h3>
+                <p id="destLocation" class="text-gray-700 mb-8"></p>
+
+                <h3 class="text-3xl font-bold mb-4 text-gray-800">Best Time to Visit</h3>
+                <p id="destBestTime" class="text-gray-700 mb-8"></p>
+
+                <h3 class="text-3xl font-bold mb-4 text-gray-800">Top Places to Visit</h3>
+                <ul id="destAttractions" class="list-disc pl-6 text-gray-700 mb-8"></ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-teal-900 text-white py-8 mt-auto">
+        <div class="container mx-auto text-center">
+            <p class="text-xl mb-2">Travel Planner © 2025. All Rights Reserved.</p>
+            <p class="text-sm">Created by Srinjay Ghosh, a passionate developer dedicated to making travel planning seamless and exciting.</p>
+        </div>
+    </footer>
+
+    <script>
+        let lastClickedButton = null;
+
+        // Destination details function
+        async function showDetails(destination) {
+            const detailsDiv = document.getElementById('details');
+            const destName = document.getElementById('destName');
+            const destDescription = document.getElementById('destDescription');
+            const destLocation = document.getElementById('destLocation');
+            const destBestTime = document.getElementById('destBestTime');
+            const destAttractions = document.getElementById('destAttractions');
+            const currentButton = document.getElementById(`btn-${destination.replace(/[^a-zA-Z0-9]/g, '')}`);
+
+            // Toggle details visibility
+            if (detailsDiv.classList.contains('hidden') || destName.textContent !== destination) {
+                // Show details section
+                detailsDiv.classList.remove('hidden');
+                detailsDiv.classList.remove('animate-fadeSlideUp');
+                void detailsDiv.offsetWidth; // Trigger reflow to restart animation
+                detailsDiv.classList.add('animate-fadeSlideUp');
+
+                // Reset previous button style
+                if (lastClickedButton) {
+                    lastClickedButton.classList.remove('active-button');
+                }
+                // Apply active style to current button
+                currentButton.classList.add('active-button');
+                lastClickedButton = currentButton;
+
+                // Fetch destination data
+                try {
+                    const response = await fetchDestinationData(destination);
+
+                    // Update UI
+                    destName.textContent = destination;
+                    destDescription.textContent = response.description || 'No description available.';
+                    destLocation.textContent = response.location || 'Information not available.';
+                    destBestTime.textContent = response.bestTime || 'Information not available.';
+
+                    // Clear previous attractions
+                    destAttractions.innerHTML = '';
+                    if (response.attractions && response.attractions.length > 0) {
+                        response.attractions.forEach(attraction => {
+                            const li = document.createElement('li');
+                            li.textContent = attraction;
+                            li.classList.add('mb-2', 'hover:text-teal-600', 'transition-colors');
+                            destAttractions.appendChild(li);
+                        });
+                    } else {
+                        const li = document.createElement('li');
+                        li.textContent = 'No attractions found.';
+                        destAttractions.appendChild(li);
+                    }
+                } catch (error) {
+                    console.error('Error fetching data:', error);
+                    destDescription.textContent = 'Error fetching data. Please try again.';
+                }
+            } else {
+                // Hide details section
+                detailsDiv.classList.add('hidden');
+                currentButton.classList.remove('active-button');
+                lastClickedButton = null;
+            }
+        }
+
+        // Simulated function to fetch destination data
+        async function fetchDestinationData(destination) {
+            let data = {
+                description: `Discover ${destination}, a captivating destination that blends rich history, vibrant culture, and breathtaking landscapes.`,
+                location: 'India',
+                bestTime: 'October to March for pleasant weather.',
+                attractions: [
+                    `Iconic Landmark - A must-visit site in ${destination}.`,
+                    `Cultural Site - Explore the rich history of ${destination}.`,
+                    `Natural Attraction - Enjoy the beauty of ${destination}.`
+                ]
+            };
+
+            if (destination === 'Taj Mahal, Agra') {
+                data = {
+                    description: 'The Taj Mahal in Agra, a UNESCO World Heritage Site, is an iconic marble mausoleum built by Emperor Shah Jahan in memory of his wife Mumtaz Mahal. This architectural marvel, known for its stunning symmetry and intricate marble work, is one of the Seven Wonders of the World and a symbol of eternal love.',
+                    location: 'Agra, Uttar Pradesh, India',
+                    bestTime: 'October to March for cooler temperatures and clear skies.',
+                    attractions: [
+                        'Taj Mahal - Stunning white marble mausoleum with intricate Mughal architecture.',
+                        'Agra Fort - UNESCO site with grand palaces and mosques.',
+                        'Itimad-ud-Daulah’s Tomb - Exquisite Mughal tomb, often called the "Baby Taj."',
+                        'Mehtab Bagh - Lush garden offering scenic views of the Taj Mahal.'
+                    ]
+                };
+            } else if (destination === 'Jaipur') {
+                data = {
+                    description: 'Jaipur, the Pink City, is the vibrant capital of Rajasthan, known for its grand palaces, colorful markets, and rich Rajput heritage. Part of the Golden Triangle, it offers a blend of history, architecture, and lively culture.',
+                    location: 'Jaipur, Rajasthan, India',
+                    bestTime: 'October to March for mild weather and vibrant festivals.',
+                    attractions: [
+                        'Amber Fort - Majestic hilltop fort with intricate interiors.',
+                        'City Palace - Royal residence with museums and courtyards.',
+                        'Hawa Mahal - Iconic palace with a honeycomb facade.',
+                        'Jantar Mantar - UNESCO-listed astronomical observatory.'
+                    ]
+                };
+            } else if (destination === 'Varanasi') {
+                data = {
+                    description: 'Varanasi, one of the world’s oldest inhabited cities, is a spiritual hub for Hindus. Situated on the banks of the sacred Ganges River, it’s famous for its ghats, temples, and the mesmerizing Ganga Aarti ritual.',
+                    location: 'Varanasi, Uttar Pradesh, India',
+                    bestTime: 'October to March for pleasant weather and spiritual festivals.',
+                    attractions: [
+                        'Dashashwamedh Ghat - Vibrant ghat hosting the Ganga Aarti.',
+                        'Kashi Vishwanath Temple - Sacred Hindu temple dedicated to Lord Shiva.',
+                        'Sarnath - Buddhist site where Buddha gave his first sermon.',
+                        'Manikarnika Ghat - Significant ghat for Hindu cremation rituals.'
+                    ]
+                };
+            } else if (destination === 'Kerala') {
+                data = {
+                    description: 'Kerala, known as God’s Own Country, is a tropical paradise in southern India. Famous for its serene backwaters, lush greenery, and tranquil beaches, it offers a perfect blend of nature, culture, and relaxation.',
+                    location: 'Kerala, India',
+                    bestTime: 'September to March for lush landscapes and pleasant weather.',
+                    attractions: [
+                        'Alleppey Backwaters - Scenic network of canals and houseboat cruises.',
+                        'Munnar - Hill station with sprawling tea plantations.',
+                        'Fort Kochi - Historic area with colonial architecture and Chinese fishing nets.',
+                        'Periyar National Park - Wildlife sanctuary with diverse flora and fauna.'
+                    ]
+                };
+            } else if (destination === 'Goa') {
+                data = {
+                    description: 'Goa, India’s smallest state, is a top beach destination known for its Arabian Sea coastline, vibrant nightlife, and Portuguese heritage. It blends relaxation with adventure and cultural exploration.',
+                    location: 'Goa, India',
+                    bestTime: 'November to February for ideal beach weather.',
+                    attractions: [
+                        'Palolem Beach - Picturesque beach with serene vibes.',
+                        'Basilica of Bom Jesus - UNESCO-listed church with Baroque architecture.',
+                        'Dudhsagar Falls - Spectacular four-tiered waterfall.',
+                        'Aguada Fort - Historic fort with scenic coastal views.'
+                    ]
+                };
+            } else if (destination === 'Udaipur') {
+                data = {
+                    description: 'Udaipur, the City of Lakes, is a romantic destination in Rajasthan, known for its stunning palaces, serene lakes, and royal heritage. It’s often called the "Venice of the East."',
+                    location: 'Udaipur, Rajasthan, India',
+                    bestTime: 'October to March for pleasant weather and clear skies.',
+                    attractions: [
+                        'City Palace - Grand palace complex with lake views.',
+                        'Lake Pichola - Scenic lake with boat rides and floating palaces.',
+                        'Jagdish Temple - Ornate temple with intricate carvings.',
+                        'Saheliyon Ki Bari - Beautiful garden with fountains and lotus pools.'
+                    ]
+                };
+            } else if (destination === 'Mysore') {
+                data = {
+                    description: 'Mysore, the City of Palaces, is renowned for its rich history, cultural heritage, and the vibrant Dussehra festival. Its opulent architecture and warm hospitality make it a beloved destination.',
+                    location: 'Mysore, Karnataka, India',
+                    bestTime: 'October to February for festive celebrations and mild weather.',
+                    attractions: [
+                        'Mysore Palace - Indo-Saracenic palace with stunning interiors.',
+                        'Chamundi Hills - Hilltop temple dedicated to Goddess Chamundeshwari.',
+                        'Brindavan Gardens - Scenic gardens with musical fountains.',
+                        'Jaganmohan Palace - Historic palace turned art gallery.'
+                    ]
+                };
+            } else if (destination === 'Ladakh') {
+                data = {
+                    description: 'Ladakh, a high-altitude desert in the Himalayas, is an adventure lover’s paradise. Known for its rugged landscapes, Buddhist monasteries, and serene lakes, it offers breathtaking views and unique cultural experiences.',
+                    location: 'Ladakh, Jammu and Kashmir, India',
+                    bestTime: 'May to September for accessible roads and clear skies.',
+                    attractions: [
+                        'Pangong Lake - Stunning lake with vibrant blue hues.',
+                        'Hemis Monastery - Ancient monastery with vibrant festivals.',
+                        'Nubra Valley - Scenic valley with sand dunes and Bactrian camels.',
+                        'Thiksey Monastery - Hilltop monastery resembling Potala Palace.'
+                    ]
+                };
+            } else if (destination === 'Cherrapunji') {
+                data = {
+                    description: 'Cherrapunji, one of the wettest places on Earth, is a nature lover’s delight in Meghalaya. Famous for its waterfalls, living root bridges, and lush landscapes, it offers a unique eco-tourism experience.',
+                    location: 'Cherrapunji, Meghalaya, India',
+                    bestTime: 'October to February for clear views and pleasant weather.',
+                    attractions: [
+                        'Nohkalikai Falls - India’s tallest plunge waterfall.',
+                        'Double Decker Living Root Bridge - Unique bio-engineered bridge.',
+                        'Mawsmai Cave - Fascinating limestone cave for exploration.',
+                        'Seven Sisters Falls - Spectacular waterfall with seven streams.'
+                    ]
+                };
+            } else if (destination === 'Darjeeling') {
+                data = {
+                    description: 'Darjeeling, the Queen of the Hills, is a charming hill station in West Bengal, famous for its tea estates, Himalayan views, and colonial heritage. It’s a perfect retreat for nature and culture lovers.',
+                    location: 'Darjeeling, West Bengal, India',
+                    bestTime: 'March to May and October to November for clear views.',
+                    attractions: [
+                        'Tiger Hill - Sunrise point with views of Kanchenjunga.',
+                        'Darjeeling Himalayan Railway - UNESCO-listed toy train ride.',
+                        'Batasia Loop - Scenic railway loop with war memorial.',
+                        'Japanese Peace Pagoda - Serene monument promoting peace.'
+                    ]
+                };
+            }
+
+            return data;
+        }
+    </script>
+</body>
+</html>
