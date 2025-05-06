@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Travel Planner</title>
+    <title>Travel Planner - Search Destinations</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         /* Custom animations */
@@ -158,6 +158,22 @@
             z-index: -1;
             opacity: 0.3;
         }
+        /* Search bar styling */
+        .search-bar {
+            transition: all 0.3s ease;
+        }
+        .search-bar:focus {
+            border-color: #14b8a6;
+            box-shadow: 0 0 10px rgba(20, 184, 166, 0.5);
+        }
+        /* Button styling */
+        .search-button {
+            transition: background 0.3s ease, transform 0.2s ease;
+        }
+        .search-button:hover {
+            background: #0d9488;
+            transform: scale(1.05);
+        }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 </head>
@@ -183,31 +199,22 @@
     </header>
 
     <div class="container mx-auto p-6 flex-grow">
-        <!-- Hero Section -->
+        <!-- Hero Section with Search Bar -->
         <div class="hero text-center py-12 mb-12 relative">
-            <h1 class="text-6xl font-bold text-teal-800 mb-4 inline-block animate-typing">About Travel Planner</h1>
-            <p class="text-xl text-gray-700 max-w-2xl mx-auto animate-float">Discover the story behind Travel Planner, its creator, and its vision for the future of travel.</p>
+            <h1 class="text-6xl font-bold text-teal-800 mb-4 inline-block animate-typing">Search Your Next Destination</h1>
+            <p class="text-xl text-gray-700 max-w-2xl mx-auto mb-6 animate-float">Plan your journey with ease—find the best places to visit, ideal travel duration, and perfect time to go.</p>
+            <!-- Search Bar -->
+            <div class="flex justify-center items-center space-x-4">
+                <input type="text" id="searchInput" placeholder="Enter a destination (e.g., Darjeeling, Bali, Paris)..." class="search-bar w-1/2 p-3 rounded-lg border-2 border-gray-300 focus:outline-none focus:border-teal-500 text-gray-700">
+                <button id="searchButton" class="search-button bg-teal-600 text-white px-6 py-3 rounded-lg font-semibold">Search</button>
+            </div>
         </div>
 
-        <!-- Content Section -->
-        <div class="content-section p-10 mb-12 max-w-4xl mx-auto animate-pulseGlow">
-            <div class="text-gray-700 leading-relaxed space-y-10">
-                <div class="animate-fadeSlideRotate">
-                    <h2 class="text-4xl font-semibold mb-4 text-teal-700 heading-hover">A Journey Through Travel Planner</h2>
-                    <p>Welcome to Travel Planner, a beautifully designed platform dedicated to making your travel dreams a reality. With curated destination guides, detailed insights on the best times to visit, and must-see attractions, this website is your go-to companion for planning unforgettable journeys. Whether you’re seeking the spiritual serenity of Varanasi or the tropical charm of Kerala, Travel Planner provides all the information you need in a visually engaging and user-friendly format.</p>
-                </div>
-                <div class="animate-fadeSlideRotate" style="animation-delay: 0.3s;">
-                    <h2 class="text-4xl font-semibold mb-4 text-teal-700 heading-hover">Meet the Creator – Srinjay Ghosh</h2>
-                    <p>I’m Srinjay Ghosh, a passionate developer and avid traveler with a deep love for exploring new places and cultures. With a background in web development and a heart that beats for adventure, I created Travel Planner to combine my technical skills with my passion for travel. My goal is to craft a seamless digital experience that inspires others to embark on their own journeys, just as I have been inspired by the diverse landscapes and rich heritage of India.</p>
-                </div>
-                <div class="animate-fadeSlideRotate" style="animation-delay: 0.6s;">
-                    <h2 class="text-4xl font-semibold mb-4 text-teal-700 heading-hover">The Main Motive</h2>
-                    <p>The core mission of Travel Planner is to simplify the travel planning process while igniting a sense of wanderlust in every user. By providing carefully curated destination guides, I aim to make travel accessible, exciting, and stress-free for everyone. Whether you’re a seasoned traveler or a first-time explorer, Travel Planner is here to help you discover the world’s most breathtaking places with ease and confidence.</p>
-                </div>
-                <div class="animate-fadeSlideRotate" style="animation-delay: 0.9s;">
-                    <h2 class="text-4xl font-semibold mb-4 text-teal-700 heading-hover">Looking Ahead – The Next 5 Years</h2>
-                    <p>Over the next five years, I envision Travel Planner evolving into a global travel platform, expanding beyond India to cover destinations worldwide. I plan to integrate AI-driven recommendations to personalize travel itineraries, introduce a community feature for travelers to share their experiences, and develop a mobile app for on-the-go planning. By 2030, I hope Travel Planner becomes a trusted name in travel, empowering millions to explore the world with curiosity and joy.</p>
-                </div>
+        <!-- Search Results Section -->
+        <div id="searchResults" class="content-section p-10 mb-12 max-w-4xl mx-auto hidden animate-pulseGlow">
+            <h2 class="text-4xl font-semibold mb-4 text-teal-700 heading-hover">Travel Details for <span id="destinationName"></span></h2>
+            <div id="resultsContent" class="text-gray-700 leading-relaxed space-y-6">
+                <!-- Results will be populated dynamically -->
             </div>
         </div>
     </div>
@@ -290,19 +297,98 @@
             canvas.height = window.innerHeight;
         });
 
-        // Scroll-based animation trigger
-        const sections = document.querySelectorAll('.animate-fadeSlideRotate');
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.animationPlayState = 'running';
-                }
-            });
-        }, { threshold: 0.3 });
+        // Search functionality
+        const searchButton = document.getElementById('searchButton');
+        const searchInput = document.getElementById('searchInput');
+        const searchResults = document.getElementById('searchResults');
+        const destinationName = document.getElementById('destinationName');
+        const resultsContent = document.getElementById('resultsContent');
 
-        sections.forEach(section => {
-            observer.observe(section);
+        // Sample data for destinations (simulating a database or API response)
+        const destinations = {
+            "darjeeling": {
+                description: "Darjeeling, nestled in the Himalayas of West Bengal, India, is renowned for its lush tea gardens, stunning views of Kanchenjunga, and colonial charm. Known as the 'Queen of Hills,' it offers a serene escape with its cool climate and scenic landscapes.",
+                duration: "3-4 days",
+                topPlaces: [
+                    "Tiger Hill - Famous for sunrise views over the Himalayas.",
+                    "Darjeeling Himalayan Railway (Toy Train) - A UNESCO World Heritage site offering scenic rides.",
+                    "Tea Gardens - Explore estates like Happy Valley Tea Estate.",
+                    "Batasia Loop - A railway loop with panoramic views and a war memorial.",
+                    "Peace Pagoda - A serene Buddhist stupa with stunning views."
+                ]
+            },
+            "bali": {
+                description: "Bali, an Indonesian paradise, is famous for its white sandy beaches, vibrant coral reefs, and lush jungles. From cultural experiences in Ubud to overwater bungalows, Bali offers a perfect blend of relaxation and adventure.",
+                duration: "5-7 days",
+                topPlaces: [
+                    "Ubud Monkey Forest - A sanctuary with ancient temples and playful monkeys.",
+                    "Tanah Lot Temple - A scenic oceanfront temple perfect for sunset views.",
+                    "Seminyak Beach - Known for its upscale beach clubs and vibrant nightlife.",
+                    "Tegallalang Rice Terraces - Iconic green terraces offering stunning photo opportunities.",
+                    "Nusa Penida - An island with dramatic cliffs and pristine beaches like Kelingking Beach."
+                ]
+            },
+            "paris": {
+                description: "Paris, the capital of France, is a city of romance, art, and history. Known as the 'City of Light,' it boasts iconic landmarks, world-class museums, and charming streets filled with cafes and boutiques.",
+                duration: "4-6 days",
+                topPlaces: [
+                    "Eiffel Tower - The iconic symbol of Paris with breathtaking views.",
+                    "Louvre Museum - Home to the Mona Lisa and thousands of artworks.",
+                    "Notre-Dame Cathedral - A masterpiece of Gothic architecture.",
+                    "Montmartre - A historic district with the stunning Sacré-Cœur Basilica.",
+                    "Champs-Élysées & Arc de Triomphe - Perfect for a scenic stroll and history."
+                ]
+            }
+        };
+
+        searchButton.addEventListener('click', () => {
+            const query = searchInput.value.trim().toLowerCase();
+            if (query === '') {
+                alert('Please enter a destination to search.');
+                return;
+            }
+
+            // Show the results section
+            searchResults.classList.remove('hidden');
+            destinationName.textContent = query.charAt(0).toUpperCase() + query.slice(1);
+
+            // Simulate a Google search and fetch data for the destination
+            let resultHtml = '';
+            if (destinations[query]) {
+                const destination = destinations[query];
+                resultHtml = `
+                    <div class="animate-fadeSlideRotate">
+                        <h3 class="text-2xl font-semibold text-teal-600 mb-2">Description</h3>
+                        <p>${destination.description}</p>
+                    </div>
+                    <div class="animate-fadeSlideRotate" style="animation-delay: 0.3s;">
+                        <h3 class="text-2xl font-semibold text-teal-600 mb-2">Recommended Trip Duration</h3>
+                        <p>${destination.duration}</p>
+                    </div>
+                    <div class="animate-fadeSlideRotate" style="animation-delay: 0.6s;">
+                        <h3 class="text-2xl font-semibold text-teal-600 mb-2">Top Places to Visit</h3>
+                        <ul class="list-disc pl-5 space-y-2">
+                            ${destination.topPlaces.map(place => `<li>${place}</li>`).join('')}
+                        </ul>
+                    </div>
+                `;
+            } else {
+                resultHtml = `
+                    <p class="animate-fadeSlideRotate">No detailed information found for "${query}". Try searching for destinations like Darjeeling, Bali, or Paris.</p>
+                `;
+            }
+
+            resultsContent.innerHTML = resultHtml;
+
+            // Scroll to results section
+            searchResults.scrollIntoView({ behavior: 'smooth' });
+        });
+
+        // Allow search on Enter key press
+        searchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                searchButton.click();
+            }
         });
     </script>
 </body>
