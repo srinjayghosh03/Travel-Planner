@@ -3,44 +3,168 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Travel Planner</title>
+    <title>About Travel Planner</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         /* Custom animations */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
         }
-        .animate-fadeIn {
-            animation: fadeIn 1s ease-out forwards;
+        @keyframes blink {
+            50% { border-color: transparent; }
         }
-        .hover-scale {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
         }
-        .hover-scale:hover {
-            transform: scale(1.05);
-            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        @keyframes fadeSlideRotate {
+            from { opacity: 0; transform: translateX(-30px) rotate(-2deg); }
+            to { opacity: 1; transform: translateX(0) rotate(0deg); }
         }
-        /* Enhanced gradient background */
+        @keyframes shimmer {
+            0% { background-position: -200%; }
+            100% { background-position: 200%; }
+        }
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 10px rgba(20, 184, 166, 0.5); }
+            50% { box-shadow: 0 0 20px rgba(20, 184, 166, 1); }
+            100% { box-shadow: 0 0 10px rgba(20, 184, 166, 0.5); }
+        }
+        @keyframes wave {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(5deg); }
+            75% { transform: rotate(-5deg); }
+        }
+        @keyframes navHover {
+            0% { transform: scale(1); color: #ffffff; }
+            50% { transform: scale(1.1); color: #14b8a6; }
+            100% { transform: scale(1); color: #ffffff; }
+        }
+        .animate-typing {
+            overflow: hidden;
+            white-space: nowrap;
+            animation: typing 3s steps(40, end) forwards;
+            border-right: 3px solid #14b8a6;
+            animation: typing 3s steps(40, end) forwards, blink 0.75s step-end infinite;
+        }
+        .animate-float {
+            animation: float 4s ease-in-out infinite;
+        }
+        .animate-fadeSlideRotate {
+            opacity: 0;
+            animation: fadeSlideRotate 1s ease-out forwards;
+        }
+        .animate-shimmer {
+            background: linear-gradient(90deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.1));
+            background-size: 200%;
+            animation: shimmer 3s infinite;
+        }
+        .animate-pulseGlow {
+            animation: pulseGlow 2s infinite;
+        }
+        .animate-wave:hover {
+            animation: wave 1s infinite;
+        }
+        .nav-hover:hover {
+            animation: navHover 0.5s ease;
+        }
+        /* Gradient background with scroll transition */
         body {
             background: linear-gradient(135deg, #a1c4fd, #c2e9fb);
+            transition: background 1s ease;
         }
-        /* Hero section background */
+        body.scrolled {
+            background: linear-gradient(135deg, #c2e9fb, #a1c4fd);
+        }
+        /* Hero section with shimmering background */
         .hero {
-            background: linear-gradient(180deg, rgba(0, 172, 193, 0.8), rgba(255, 255, 255, 0.2));
+            background: linear-gradient(180deg, rgba(0, 172, 193, 0.9), rgba(255, 255, 255, 0.3));
             border-radius: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.1));
+            background-size: 200%;
+            animation: shimmer 3s infinite;
         }
         /* Smooth typography */
         h1, h2, h3 {
             font-family: 'Playfair Display', serif;
         }
-        p, li, input, button {
+        p, li {
             font-family: 'Poppins', sans-serif;
+        }
+        /* Gradient border for content section */
+        .content-section {
+            position: relative;
+            border-radius: 1.5rem;
+            background: white;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+        .content-section::before {
+            content: '';
+            position: absolute;
+            top: -4px;
+            left: -4px;
+            right: -4px;
+            bottom: -4px;
+            border-radius: 1.5rem;
+            background: linear-gradient(45deg, #14b8a6, #1d4ed8, #14b8a6, #1d4ed8);
+            background-size: 200%;
+            animation: gradientBorder 5s linear infinite;
+            z-index: -1;
+        }
+        @keyframes gradientBorder {
+            0% { background-position: 0%; }
+            100% { background-position: 200%; }
+        }
+        /* Heading hover effect */
+        .heading-hover {
+            position: relative;
+            display: inline-block;
+            transition: transform 0.3s ease;
+        }
+        .heading-hover::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 3px;
+            bottom: -4px;
+            left: 0;
+            background: linear-gradient(90deg, #14b8a6, #1d4ed8);
+            transition: width 0.3s ease;
+        }
+        .heading-hover:hover {
+            transform: translateY(-5px);
+        }
+        .heading-hover:hover::after {
+            width: 100%;
+        }
+        /* Particle background */
+        #particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.3;
         }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body class="min-h-screen flex flex-col">
+    <!-- Particle Background -->
+    <canvas id="particles"></canvas>
+
     <!-- Header -->
     <header class="bg-teal-900 text-white py-4 shadow-lg sticky top-0 z-10">
         <div class="container mx-auto flex justify-between items-center px-6">
@@ -50,9 +174,9 @@
             </div>
             <nav>
                 <ul class="flex space-x-8">
-                    <li><a href="#" class="text-lg hover:text-teal-300 transition-colors">Travel Planner</a></li>
-                    <li><a href="#" class="text-lg hover:text-teal-300 transition-colors">Top Destinations</a></li>
-                    <li><a href="#" class="text-lg hover:text-teal-300 transition-colors">About</a></li>
+                    <li><a href="#" class="text-lg nav-hover">Travel Planner</a></li>
+                    <li><a href="#" class="text-lg nav-hover">Top Destinations</a></li>
+                    <li><a href="#" class="text-lg nav-hover">About</a></li>
                 </ul>
             </nav>
         </div>
@@ -60,45 +184,30 @@
 
     <div class="container mx-auto p-6 flex-grow">
         <!-- Hero Section -->
-        <div class="hero text-center py-12 mb-12 animate-fadeIn">
-            <h1 class="text-6xl font-bold text-teal-800 mb-4">Discover Your Next Adventure</h1>
-            <p class="text-xl text-gray-700 max-w-2xl mx-auto">Plan your dream trip with Travel Planner and explore the world’s most breathtaking destinations with ease.</p>
+        <div class="hero text-center py-12 mb-12 relative">
+            <h1 class="text-6xl font-bold text-teal-800 mb-4 inline-block animate-typing">About Travel Planner</h1>
+            <p class="text-xl text-gray-700 max-w-2xl mx-auto animate-float">Discover the story behind Travel Planner, its creator, and its vision for the future of travel.</p>
         </div>
 
-        <!-- Input Form -->
-        <div class="bg-white p-10 rounded-2xl shadow-2xl mb-12 max-w-lg mx-auto animate-fadeIn" style="animation-delay: 0.2s;">
-            <h2 class="text-4xl font-semibold mb-6 text-teal-700">Enter Your Destination</h2>
-            <div class="flex space-x-4">
-                <input 
-                    type="text" 
-                    id="destinationInput" 
-                    placeholder="e.g., Paris, France" 
-                    class="flex-1 p-4 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500 text-gray-700"
-                >
-                <button 
-                    id="searchButton" 
-                    class="bg-teal-600 text-white px-8 py-4 rounded-lg hover:bg-teal-700 hover-scale"
-                >
-                    Search
-                </button>
-            </div>
-        </div>
-
-        <!-- Results Section -->
-        <div id="results" class="bg-white p-10 rounded-2xl shadow-2xl max-w-4xl mx-auto hidden animate-fadeIn" style="animation-delay: 0.4s;">
-            <h2 class="text-4xl font-semibold mb-8 text-teal-700">Travel Details</h2>
-            <div id="placeDetails">
-                <h3 class="text-3xl font-bold mb-4 text-gray-800">About <span id="placeName"></span></h3>
-                <p id="placeDescription" class="text-gray-700 mb-8 leading-relaxed"></p>
-
-                <h3 class="text-3xl font-bold mb-4 text-gray-800">Best Time to Visit</h3>
-                <p id="bestTime" class="text-gray-700 mb-8"></p>
-
-                <h3 class="text-3xl font-bold mb-4 text-gray-800">Recommended Duration</h3>
-                <p id="duration" class="text-gray-700 mb-8"></p>
-
-                <h3 class="text-3xl font-bold mb-4 text-gray-800">Top Places to Visit</h3>
-                <ul id="attractions" class="list-disc pl-6 text-gray-700 mb-8"></ul>
+        <!-- Content Section -->
+        <div class="content-section p-10 mb-12 max-w-4xl mx-auto animate-pulseGlow">
+            <div class="text-gray-700 leading-relaxed space-y-10">
+                <div class="animate-fadeSlideRotate">
+                    <h2 class="text-4xl font-semibold mb-4 text-teal-700 heading-hover">A Journey Through Travel Planner</h2>
+                    <p>Welcome to Travel Planner, a beautifully designed platform dedicated to making your travel dreams a reality. With curated destination guides, detailed insights on the best times to visit, and must-see attractions, this website is your go-to companion for planning unforgettable journeys. Whether you’re seeking the spiritual serenity of Varanasi or the tropical charm of Kerala, Travel Planner provides all the information you need in a visually engaging and user-friendly format.</p>
+                </div>
+                <div class="animate-fadeSlideRotate" style="animation-delay: 0.3s;">
+                    <h2 class="text-4xl font-semibold mb-4 text-teal-700 heading-hover">Meet the Creator – Srinjay Ghosh</h2>
+                    <p>I’m Srinjay Ghosh, a passionate developer and avid traveler with a deep love for exploring new places and cultures. With a background in web development and a heart that beats for adventure, I created Travel Planner to combine my technical skills with my passion for travel. My goal is to craft a seamless digital experience that inspires others to embark on their own journeys, just as I have been inspired by the diverse landscapes and rich heritage of India.</p>
+                </div>
+                <div class="animate-fadeSlideRotate" style="animation-delay: 0.6s;">
+                    <h2 class="text-4xl font-semibold mb-4 text-teal-700 heading-hover">The Main Motive</h2>
+                    <p>The core mission of Travel Planner is to simplify the travel planning process while igniting a sense of wanderlust in every user. By providing carefully curated destination guides, I aim to make travel accessible, exciting, and stress-free for everyone. Whether you’re a seasoned traveler or a first-time explorer, Travel Planner is here to help you discover the world’s most breathtaking places with ease and confidence.</p>
+                </div>
+                <div class="animate-fadeSlideRotate" style="animation-delay: 0.9s;">
+                    <h2 class="text-4xl font-semibold mb-4 text-teal-700 heading-hover">Looking Ahead – The Next 5 Years</h2>
+                    <p>Over the next five years, I envision Travel Planner evolving into a global travel platform, expanding beyond India to cover destinations worldwide. I plan to integrate AI-driven recommendations to personalize travel itineraries, introduce a community feature for travelers to share their experiences, and develop a mobile app for on-the-go planning. By 2030, I hope Travel Planner becomes a trusted name in travel, empowering millions to explore the world with curiosity and joy.</p>
+                </div>
             </div>
         </div>
     </div>
@@ -106,116 +215,95 @@
     <!-- Footer -->
     <footer class="bg-teal-900 text-white py-8 mt-auto">
         <div class="container mx-auto text-center">
-            <p class="text-xl mb-2">Travel Planner © 2025. All Rights Reserved.</p>
-            <p class="text-sm">Created by Srinjay Ghosh, a passionate developer dedicated to making travel planning seamless and exciting. This website is designed to help explorers discover the best destinations with ease.</p>
+            <p class="text-xl mb-2 animate-wave">Travel Planner © 2025. All Rights Reserved.</p>
+            <p class="text-sm animate-wave">Created by Srinjay Ghosh, a passionate developer dedicated to making travel planning seamless and exciting.</p>
         </div>
     </footer>
 
     <script>
-        // Get DOM elements
-        const searchButton = document.getElementById('searchButton');
-        const destinationInput = document.getElementById('destinationInput');
-        const resultsDiv = document.getElementById('results');
-        const placeName = document.getElementById('placeName');
-        const placeDescription = document.getElementById('placeDescription');
-        const bestTime = document.getElementById('bestTime');
-        const duration = document.getElementById('duration');
-        const attractions = document.getElementById('attractions');
-
-        // Event listener for search button
-        searchButton.addEventListener('click', async () => {
-            const destination = destinationInput.value.trim();
-            if (!destination) {
-                alert('Please enter a destination');
-                return;
-            }
-
-            // Show results section
-            resultsDiv.classList.remove('hidden');
-
-            // Placeholder for web search logic
-            try {
-                // Simulated API response
-                const response = await fetchTravelData(destination);
-
-                // Update UI with data
-                placeName.textContent = destination;
-                placeDescription.textContent = response.description || 'No description available.';
-                bestTime.textContent = response.bestTime || 'Information not available.';
-                duration.textContent = response.duration || 'Information not available.';
-                
-                // Clear previous attractions
-                attractions.innerHTML = '';
-                if (response.attractions && response.attractions.length > 0) {
-                    response.attractions.forEach(attraction => {
-                        const li = document.createElement('li');
-                        li.textContent = attraction;
-                        li.classList.add('mb-2', 'hover:text-teal-600', 'transition-colors');
-                        attractions.appendChild(li);
-                    });
-                } else {
-                    const li = document.createElement('li');
-                    li.textContent = 'No attractions found.';
-                    attractions.appendChild(li);
-                }
-            } catch (error) {
-                console.error('Error fetching data:', error);
-                placeDescription.textContent = 'Error fetching data. Please try again.';
+        // Scroll-based background transition
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                document.body.classList.add('scrolled');
+            } else {
+                document.body.classList.remove('scrolled');
             }
         });
 
-        // Simulated function to fetch travel data
-        async function fetchTravelData(destination) {
-            // Placeholder for actual API call or web scraping logic
-            // Customize duration and attractions based on destination
-            let duration = '3-5 days recommended to explore major attractions.';
-            let attractions = [
-                `Iconic Landmark - A must-visit site in ${destination}.`,
-                `Cultural Museum - Explore the rich history of ${destination}.`,
-                `Scenic Park - Enjoy the natural beauty of ${destination}.`
-            ];
+        // Particle effect
+        const canvas = document.getElementById('particles');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
 
-            if (destination.toLowerCase().includes('paris')) {
-                duration = '4-7 days recommended to visit landmarks like the Eiffel Tower, Louvre, and day trips to Versailles.';
-                attractions = [
-                    'Eiffel Tower - Iconic iron lattice tower with panoramic city views.', //[](https://www.cntraveler.com/gallery/best-things-to-do-in-paris)[](https://www.bajajfinserv.in/places-to-visit-in-paris)
-                    'Louvre Museum - World’s largest art museum, home to the Mona Lisa.', //[](https://www.bajajfinserv.in/places-to-visit-in-paris)
-                    'Notre-Dame Cathedral - Historic Gothic cathedral known for its stunning architecture.', //[](https://www.cntraveler.com/gallery/best-things-to-do-in-paris)
-                    'Palais de Tokyo - Europe’s largest center for contemporary art with a raw, modern vibe.' //[](https://www.cntraveler.com/gallery/best-things-to-do-in-paris)
-                ];
-            } else if (destination.toLowerCase().includes('new york')) {
-                duration = '5-8 days recommended to experience Manhattan, Brooklyn, and cultural sites.';
-                attractions = [
-                    'Statue of Liberty - Historic monument symbolizing freedom, accessible by ferry.', //[](https://parisjetaime.com/eng/article/20-unusual-places-to-see-in-paris-a1089)
-                    'Central Park - Expansive urban park offering serene walks and recreation.', //[](https://www.washingtonpost.com/travel/tips/best-time-visit-rome-paris-tokyo/)
-                    'Metropolitan Museum of Art - Vast collection of global art spanning centuries.', //[](https://wheatlesswanderlust.com/things-to-do-in-rome/)
-                    'Times Square - Vibrant hub known for its bright lights and Broadway shows.' //[](https://wheatlesswanderlust.com/things-to-do-in-rome/)
-                ];
-            } else if (destination.toLowerCase().includes('tokyo')) {
-                duration = '6-10 days recommended to explore temples, modern districts, and nearby Mount Fuji.';
-                attractions = [
-                    'Shibuya Crossing - Iconic pedestrian crossing in a bustling district.', //[](https://www.klook.com/blog/best-places-to-visit-outside-of-paris/)
-                    'Senso-ji Temple - Tokyo’s oldest Buddhist temple in Asakusa with rich history.', //[](https://www.foratravel.com/the-journal/where-to-stay-in-tokyo)
-                    'Tokyo Skytree - Modern observation tower offering panoramic city views.', //[](https://www.foratravel.com/the-journal/where-to-stay-in-tokyo)
-                    'Imperial Palace East Gardens - Historic gardens near the emperor’s residence.' //[](https://www.travelandtourworld.com/news/article/dubai-paris-london-tokyo-rio-de-janeiro-new-york-city-rome-florianopolis-barcelona-and-bangkok-shine-as-top-travel-destinations-in-summer-2025/)
-                ];
-            } else if (destination.toLowerCase().includes('rome')) {
-                duration = '4-6 days recommended to see the Colosseum, Vatican, and historic sites.';
-                attractions = [
-                    'Colosseum - Ancient amphitheater showcasing Roman engineering.', //[](https://www.timeout.com/rome/things-to-do/best-attractions-in-rome)
-                    'Vatican Museums - Home to the Sistine Chapel and Renaissance art.', //[](https://www.travelandtourworld.com/news/article/dubai-paris-london-tokyo-rio-de-janeiro-new-york-city-rome-florianopolis-barcelona-and-bangkok-shine-as-top-travel-destinations-in-summer-2025/)
-                    'Pantheon - Well-preserved Roman temple with a stunning dome.', //[](https://www.timeout.com/rome/things-to-do/best-attractions-in-rome)
-                    'Villa Borghese Gardens - Heart-shaped park with scenic views and the Borghese Gallery.' //[](https://theromanguy.com/italy-travel-blog/rome/top-things-to-do-in-rome-for-this-year/)
-                ];
+        const particlesArray = [];
+        const numberOfParticles = 50;
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 5 + 1;
+                this.speedX = Math.random() * 2 - 1;
+                this.speedY = Math.random() * 2 - 1;
             }
-
-            return {
-                description: `Discover ${destination}, a captivating destination that blends rich history, vibrant culture, and breathtaking landscapes. Wander through its charming streets lined with ancient architecture-Jewish Ghetto, indulge in local cuisine that tantalizes the taste buds, and immerse yourself in traditions that have shaped the region for centuries. Whether you're exploring iconic landmarks, relaxing in serene parks, or engaging with friendly locals, ${destination} offers an unforgettable experience for every traveler. From bustling markets to tranquil countryside escapes, this destination promises a journey filled with discovery and wonder.`,
-                bestTime: `March to May or September to November, when the weather is mild and crowds are fewer.`,
-                duration: duration,
-                attractions: attractions
-            };
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.size > 0.2) this.size -= 0.01;
+                if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+            }
+            draw() {
+                ctx.fillStyle = 'rgba(20, 184, 166, 0.5)';
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
         }
+
+        function init() {
+            for (let i = 0; i < numberOfParticles; i++) {
+                particlesArray.push(new Particle());
+            }
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < particlesArray.length; i++) {
+                particlesArray[i].update();
+                particlesArray[i].draw();
+                if (particlesArray[i].size <= 0.2) {
+                    particlesArray.splice(i, 1);
+                    i--;
+                    particlesArray.push(new Particle());
+                }
+            }
+            requestAnimationFrame(animateParticles);
+        }
+
+        init();
+        animateParticles();
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        // Scroll-based animation trigger
+        const sections = document.querySelectorAll('.animate-fadeSlideRotate');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.animationPlayState = 'running';
+                }
+            });
+        }, { threshold: 0.3 });
+
+        sections.forEach(section => {
+            observer.observe(section);
+        });
     </script>
 </body>
 </html>
