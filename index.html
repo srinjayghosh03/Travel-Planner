@@ -1,395 +1,406 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Travel Planner - Search Destinations</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        /* Custom animations */
-        @keyframes typing {
-            from { width: 0; }
-            to { width: 100%; }
-        }
-        @keyframes blink {
-            50% { border-color: transparent; }
-        }
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-        @keyframes fadeSlideRotate {
-            from { opacity: 0; transform: translateX(-30px) rotate(-2deg); }
-            to { opacity: 1; transform: translateX(0) rotate(0deg); }
-        }
-        @keyframes shimmer {
-            0% { background-position: -200%; }
-            100% { background-position: 200%; }
-        }
-        @keyframes pulseGlow {
-            0% { box-shadow: 0 0 10px rgba(20, 184, 166, 0.5); }
-            50% { box-shadow: 0 0 20px rgba(20, 184, 166, 1); }
-            100% { box-shadow: 0 0 10px rgba(20, 184, 166, 0.5); }
-        }
-        @keyframes wave {
-            0%, 100% { transform: rotate(0deg); }
-            25% { transform: rotate(5deg); }
-            75% { transform: rotate(-5deg); }
-        }
-        @keyframes navHover {
-            0% { transform: scale(1); color: #ffffff; }
-            50% { transform: scale(1.1); color: #14b8a6; }
-            100% { transform: scale(1); color: #ffffff; }
-        }
-        .animate-typing {
-            overflow: hidden;
-            white-space: nowrap;
-            animation: typing 3s steps(40, end) forwards;
-            border-right: 3px solid #14b8a6;
-            animation: typing 3s steps(40, end) forwards, blink 0.75s step-end infinite;
-        }
-        .animate-float {
-            animation: float 4s ease-in-out infinite;
-        }
-        .animate-fadeSlideRotate {
-            opacity: 0;
-            animation: fadeSlideRotate 1s ease-out forwards;
-        }
-        .animate-shimmer {
-            background: linear-gradient(90deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.1));
-            background-size: 200%;
-            animation: shimmer 3s infinite;
-        }
-        .animate-pulseGlow {
-            animation: pulseGlow 2s infinite;
-        }
-        .animate-wave:hover {
-            animation: wave 1s infinite;
-        }
-        .nav-hover:hover {
-            animation: navHover 0.5s ease;
-        }
-        /* Gradient background with scroll transition */
-        body {
-            background: linear-gradient(135deg, #a1c4fd, #c2e9fb);
-            transition: background 1s ease;
-        }
-        body.scrolled {
-            background: linear-gradient(135deg, #c2e9fb, #a1c4fd);
-        }
-        /* Hero section with shimmering background */
-        .hero {
-            background: linear-gradient(180deg, rgba(0, 172, 193, 0.9), rgba(255, 255, 255, 0.3));
-            border-radius: 1.5rem;
-            position: relative;
-            overflow: hidden;
-        }
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.1));
-            background-size: 200%;
-            animation: shimmer 3s infinite;
-        }
-        /* Smooth typography */
-        h1, h2, h3 {
-            font-family: 'Playfair Display', serif;
-        }
-        p, li {
-            font-family: 'Poppins', sans-serif;
-        }
-        /* Gradient border for content section */
-        .content-section {
-            position: relative;
-            border-radius: 1.5rem;
-            background: white;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-        }
-        .content-section::before {
-            content: '';
-            position: absolute;
-            top: -4px;
-            left: -4px;
-            right: -4px;
-            bottom: -4px;
-            border-radius: 1.5rem;
-            background: linear-gradient(45deg, #14b8a6, #1d4ed8, #14b8a6, #1d4ed8);
-            background-size: 200%;
-            animation: gradientBorder 5s linear infinite;
-            z-index: -1;
-        }
-        @keyframes gradientBorder {
-            0% { background-position: 0%; }
-            100% { background-position: 200%; }
-        }
-        /* Heading hover effect */
-        .heading-hover {
-            position: relative;
-            display: inline-block;
-            transition: transform 0.3s ease;
-        }
-        .heading-hover::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 3px;
-            bottom: -4px;
-            left: 0;
-            background: linear-gradient(90deg, #14b8a6, #1d4ed8);
-            transition: width 0.3s ease;
-        }
-        .heading-hover:hover {
-            transform: translateY(-5px);
-        }
-        .heading-hover:hover::after {
-            width: 100%;
-        }
-        /* Particle background */
-        #particles {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            opacity: 0.3;
-        }
-        /* Search bar styling */
-        .search-bar {
-            transition: all 0.3s ease;
-        }
-        .search-bar:focus {
-            border-color: #14b8a6;
-            box-shadow: 0 0 10px rgba(20, 184, 166, 0.5);
-        }
-        /* Button styling */
-        .search-button {
-            transition: background 0.3s ease, transform 0.2s ease;
-        }
-        .search-button:hover {
-            background: #0d9488;
-            transform: scale(1.05);
-        }
-    </style>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Travel Planner</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      overflow-x: hidden;
+    }
+    h1, h2, h3, h4 {
+      font-family: 'Montserrat', sans-serif;
+    }
+    /* Hero Section with Gradient and Parallax */
+    .hero-bg {
+      background: linear-gradient(135deg, #4b5e6b 0%, #3b82f6 50%, #34d399 100%), url('https://www.transparenttextures.com/patterns/subtle-white-feathers.png');
+      background-attachment: fixed;
+      background-size: cover;
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+    }
+    .hero-bg::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.3);
+      z-index: -1;
+    }
+    #particles-js {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: 0;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 1;
+    }
+    /* Progress Bar with Gradient */
+    .progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 5px;
+      background: linear-gradient(to right, #34d399, #3b82f6);
+      width: 0%;
+      z-index: 50;
+      transition: width 0.3s ease;
+    }
+    /* Navigation Link Hover Effect */
+    .nav-link {
+      position: relative;
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -4px;
+      left: 0;
+      background: #34d399;
+      transition: width 0.3s ease;
+    }
+    .nav-link:hover::after {
+      width: 100%;
+    }
+    /* Dark Mode Styling */
+    .dark-mode {
+      background: #1f2937;
+      color: #e5e7eb;
+    }
+    .dark-mode .bg-white {
+      background: #1f2937;
+    }
+    .dark-mode .bg-gray-100 {
+      background: #374151;
+    }
+    .dark-mode .text-gray-800 {
+      color: #e5e7eb;
+    }
+    .dark-mode .text-gray-900 {
+      color: #e5e7eb;
+    }
+    .dark-mode .bg-teal-900 {
+      background: #1e40af;
+    }
+    .dark-mode .text-teal-800 {
+      color: #60a5fa;
+    }
+    .dark-mode .hero-bg {
+      background: linear-gradient(135deg, #374151 0%, #1e40af 50%, #064e3b 100%), url('https://www.transparenttextures.com/patterns/subtle-white-feathers.png');
+    }
+    .dark-mode .result-card {
+      background: #374151;
+    }
+    .dark-mode .result-card:hover {
+      border-image: linear-gradient(to right, #1e40af, #60a5fa) 1;
+    }
+    /* Back to Top Button with Glow */
+    #back-to-top {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: #34d399;
+      color: white;
+      padding: 12px 18px;
+      border-radius: 50%;
+      display: none;
+      z-index: 50;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 15px rgba(52, 211, 153, 0.5);
+    }
+    #back-to-top:hover {
+      background: #3b82f6;
+      box-shadow: 0 0 20px rgba(59, 130, 246, 0.7);
+      transform: scale(1.1);
+    }
+    /* Title Animation */
+    .title-anim {
+      opacity: 0;
+      transform: scale(0.95);
+      animation: titleFadeIn 1s ease forwards;
+    }
+    @keyframes titleFadeIn {
+      0% { opacity: 0; transform: scale(0.95); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+    /* Result Card Styling */
+    .result-card {
+      background: rgba(255, 255, 255, 0.95);
+      border: 2px solid transparent;
+      border-radius: 16px;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .result-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('https://www.transparenttextures.com/patterns/light-wool.png');
+      opacity: 0.1;
+      z-index: -1;
+    }
+    .result-card:hover {
+      border-image: linear-gradient(to right, #34d399, #3b82f6) 1;
+      box-shadow: 0 10px 20px rgba(59, 130, 246, 0.3);
+      transform: translateY(-5px);
+    }
+    /* Glowing Button Effect */
+    .glow-btn {
+      box-shadow: 0 0 15px rgba(52, 211, 153, 0.5);
+      transition: all 0.3s ease;
+    }
+    .glow-btn:hover {
+      box-shadow: 0 0 25px rgba(59, 130, 246, 0.7);
+      background: #3b82f6;
+      color: white;
+    }
+    /* Loading Spinner */
+    .spinner {
+      display: none;
+      border: 4px solid rgba(255, 255, 255, 0.3);
+      border-top: 4px solid #34d399;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+      margin: 20px auto;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
 </head>
-<body class="min-h-screen flex flex-col">
-    <!-- Particle Background -->
-    <canvas id="particles"></canvas>
+<body class="bg-white text-gray-900 min-h-screen transition-colors duration-300">
+  <!-- Progress Bar -->
+  <div class="progress-bar" id="progress-bar"></div>
 
-    <!-- Header -->
-    <header class="bg-teal-900 text-white py-4 shadow-lg sticky top-0 z-10">
-        <div class="container mx-auto flex justify-between items-center px-6">
-            <div>
-                <h1 class="text-4xl font-bold">Travel Planner</h1>
-                <p class="text-sm font-light">Journey Beyond, Plan with Ease</p>
-            </div>
-            <nav>
-                <ul class="flex space-x-8">
-                    <li><a href="#" class="text-lg nav-hover">Travel Planner</a></li>
-                    <li><a href="#" class="text-lg nav-hover">Top Destinations</a></li>
-                    <li><a href="#" class="text-lg nav-hover">About</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
+  <!-- Header -->
+  <header id="header" class="p-6 flex justify-between items-center bg-teal-900 text-white sticky top-0 z-40">
+    <h1 class="text-2xl font-bold text-yellow-300">Travel Planner</h1>
+    <nav class="space-x-6 text-lg font-medium">
+      <a href="index.html" class="nav-link hover:text-yellow-300 transition duration-200">Home</a>
+      <button id="dark-mode-toggle" class="hover:text-yellow-300 transition duration-200">🌙</button>
+    </nav>
+  </header>
 
-    <div class="container mx-auto p-6 flex-grow">
-        <!-- Hero Section with Search Bar -->
-        <div class="hero text-center py-12 mb-12 relative">
-            <h1 class="text-6xl font-bold text-teal-800 mb-4 inline-block animate-typing">Search Your Next Destination</h1>
-            <p class="text-xl text-gray-700 max-w-2xl mx-auto mb-6 animate-float">Plan your journey with ease—find the best places to visit, ideal travel duration, and perfect time to go.</p>
-            <!-- Search Bar -->
-            <div class="flex justify-center items-center space-x-4">
-                <input type="text" id="searchInput" placeholder="Enter a destination (e.g., Darjeeling, Bali, Paris)..." class="search-bar w-1/2 p-3 rounded-lg border-2 border-gray-300 focus:outline-none focus:border-teal-500 text-gray-700">
-                <button id="searchButton" class="search-button bg-teal-600 text-white px-6 py-3 rounded-lg font-semibold">Search</button>
-            </div>
-        </div>
-
-        <!-- Search Results Section -->
-        <div id="searchResults" class="content-section p-10 mb-12 max-w-4xl mx-auto hidden animate-pulseGlow">
-            <h2 class="text-4xl font-semibold mb-4 text-teal-700 heading-hover">Travel Details for <span id="destinationName"></span></h2>
-            <div id="resultsContent" class="text-gray-700 leading-relaxed space-y-6">
-                <!-- Results will be populated dynamically -->
-            </div>
-        </div>
+  <!-- Hero Section -->
+  <section class="hero-bg p-10 text-center">
+    <div id="particles-js"></div>
+    <div class="hero-content">
+      <h2 class="text-4xl md:text-5xl font-bold mb-4 text-white title-anim">Plan Your Perfect Trip</h2>
+      <p id="typed-text" class="text-xl max-w-3xl mx-auto text-yellow-200"></p>
+      <div class="mt-8 max-w-md mx-auto">
+        <input
+          type="text"
+          id="destination-input"
+          placeholder="Enter your destination (e.g., Paris, Tokyo)"
+          class="w-full p-4 rounded-l-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-teal-500"
+        />
+        <button
+          id="search-btn"
+          class="glow-btn bg-yellow-400 text-teal-900 px-6 py-4 rounded-r-lg font-semibold mt-2 w-full md:w-auto"
+        >
+          Search
+        </button>
+      </div>
     </div>
+  </section>
 
-    <!-- Footer -->
-    <footer class="bg-teal-900 text-white py-8 mt-auto">
-        <div class="container mx-auto text-center">
-            <p class="text-xl mb-2 animate-wave">Travel Planner © 2025. All Rights Reserved.</p>
-            <p class="text-sm animate-wave">Created by Srinjay Ghosh, a passionate developer dedicated to making travel planning seamless and exciting.</p>
-        </div>
-    </footer>
+  <!-- Results Section -->
+  <section id="results-section" class="bg-gray-100 text-gray-800 py-16 px-6 md:px-20 hidden">
+    <div class="max-w-5xl mx-auto space-y-12">
+      <div class="spinner" id="loading-spinner"></div>
+      <div id="results-container" class="space-y-8"></div>
+    </div>
+  </section>
 
-    <script>
-        // Scroll-based background transition
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 100) {
-                document.body.classList.add('scrolled');
-            } else {
-                document.body.classList.remove('scrolled');
-            }
-        });
+  <!-- Footer -->
+  <footer class="text-center p-6 bg-teal-900 text-white mt-10">
+    <p class="mb-2 text-lg">© 2025 Travel Planner | <a href="mailto:contact@travelplanner.com" class="underline hover:text-yellow-300">contact@travelplanner.com</a> | <span>📍 Powered by AI</span></p>
+  </footer>
 
-        // Particle effect
-        const canvas = document.getElementById('particles');
-        const ctx = canvas.getContext('2d');
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+  <!-- Back to Top Button -->
+  <button id="back-to-top" class="text-sm">⬆</button>
 
-        const particlesArray = [];
-        const numberOfParticles = 50;
+  <!-- JavaScript for Interactivity -->
+  <script>
+    // Typing animation for hero section
+    const typed = new Typed('#typed-text', {
+      strings: [
+        'Discover your next adventure with ease.',
+        'Personalized travel plans just for you.'
+      ],
+      typeSpeed: 50,
+      backSpeed: 30,
+      backDelay: 1000,
+      loop: true
+    });
 
-        class Particle {
-            constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 5 + 1;
-                this.speedX = Math.random() * 2 - 1;
-                this.speedY = Math.random() * 2 - 1;
-            }
-            update() {
-                this.x += this.speedX;
-                this.y += this.speedY;
-                if (this.size > 0.2) this.size -= 0.01;
-                if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
-                if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
-            }
-            draw() {
-                ctx.fillStyle = 'rgba(20, 184, 166, 0.5)';
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
-            }
+    // Particles.js for hero section
+    particlesJS('particles-js', {
+      particles: {
+        number: { value: 60, density: { enable: true, value_area: 800 } },
+        color: { value: '#ffffff' },
+        shape: { type: 'circle' },
+        opacity: { value: 0.5, random: true },
+        size: { value: 3, random: true },
+        line_linked: { enable: false },
+        move: { enable: true, speed: 2, direction: 'none', random: true }
+      },
+      interactivity: {
+        detect_on: 'canvas',
+        events: { onhover: { enable: true, mode: 'repulse' }, onclick: { enable: true, mode: 'push' } },
+        modes: { repulse: { distance: 100, duration: 0.4 }, push: { particles_nb: 4 } }
+      },
+      retina_detect: true
+    });
+
+    // Scroll progress bar
+    window.addEventListener('scroll', () => {
+      const winScroll = document.documentElement.scrollTop || document.body.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = (winScroll / height) * 100;
+      document.getElementById('progress-bar').style.width = scrolled + '%';
+    });
+
+    // Sticky header shadow
+    window.addEventListener('scroll', () => {
+      const header = document.getElementById('header');
+      if (window.scrollY > 0) {
+        header.classList.add('nav-shadow');
+      } else {
+        header.classList.remove('nav-shadow');
+      }
+    });
+
+    // Back to top button
+    const backToTopButton = document.getElementById('back-to-top');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 300) {
+        backToTopButton.style.display = 'block';
+      } else {
+        backToTopButton.style.display = 'none';
+      }
+    });
+    backToTopButton.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // Dark mode toggle
+    const darkModeToggle = document.getElementById('dark-mode-toggle');
+    darkModeToggle.addEventListener('click', () => {
+      document.body.classList.toggle('dark-mode');
+      darkModeToggle.textContent = document.body.classList.contains('dark-mode') ? '☀️' : '🌙';
+    });
+
+    // Simulated destination database
+    const destinationData = {
+      paris: {
+        description: 'Paris, the City of Light, is renowned for its romantic ambiance, iconic landmarks like the Eiffel Tower, and world-class museums such as the Louvre. Stroll along the Seine, enjoy French cuisine, and explore charming neighborhoods like Montmartre.',
+        bestTime: 'April to June and September to October for mild weather and fewer crowds.',
+        days: '4-5 days to explore major attractions, museums, and enjoy the Parisian lifestyle.',
+        attractions: ['Eiffel Tower', 'Louvre Museum', 'Notre-Dame Cathedral', 'Montmartre', 'Seine River Cruise']
+      },
+      tokyo: {
+        description: 'Tokyo is a vibrant metropolis blending tradition and modernity, with ancient temples, bustling markets, and cutting-edge technology. Experience Shibuya’s famous crossing, savor sushi, and visit serene gardens like Shinjuku Gyoen.',
+        bestTime: 'March to May for cherry blossoms and September to November for pleasant weather.',
+        days: '5-7 days to explore neighborhoods, temples, and day trips to places like Nikko or Kamakura.',
+        attractions: ['Shibuya Crossing', 'Senso-ji Temple', 'Shinjuku Gyoen', 'Tsukiji Market', 'Tokyo Skytree']
+      },
+      bali: {
+        description: 'Bali is a tropical paradise known for its lush rice terraces, pristine beaches, and rich cultural heritage. Visit ancient temples, relax in Ubud’s yoga retreats, and surf in Kuta.',
+        bestTime: 'April to October for dry season and ideal beach weather.',
+        days: '7-10 days to explore Ubud, beaches, and cultural sites like Tanah Lot.',
+        attractions: ['Ubud Monkey Forest', 'Tanah Lot Temple', 'Tegalalang Rice Terrace', 'Kuta Beach', 'Nusa Islands']
+      },
+      newyork: {
+        description: 'New York City, the Big Apple, is a global hub of culture, finance, and entertainment. Iconic sites include Times Square, Central Park, and the Statue of Liberty, with diverse neighborhoods offering endless dining and art.',
+        bestTime: 'April to June and September to November for comfortable weather and vibrant events.',
+        days: '4-6 days to visit landmarks, museums, and experience Broadway shows.',
+        attractions: ['Statue of Liberty', 'Central Park', 'Times Square', 'Metropolitan Museum of Art', 'Brooklyn Bridge']
+      },
+      kerala: {
+        description: 'Kerala, known as God’s Own Country, offers serene backwaters, lush tea plantations, and vibrant cultural festivals. Cruise through Alleppey, explore Munnar’s hills, and relax on Varkala’s beaches.',
+        bestTime: 'October to March for pleasant weather and lush greenery.',
+        days: '7-10 days to explore backwaters, hill stations, and cultural sites.',
+        attractions: ['Alleppey Backwaters', 'Munnar Tea Plantations', 'Varkala Beach', 'Periyar National Park', 'Kochi Fort']
+      },
+      darjeeling: {
+        description: 'Darjeeling, nestled in the Himalayas, is famous for its tea gardens, scenic views of Kanchenjunga, and the historic Toy Train. Enjoy treks, monasteries, and local markets.',
+        bestTime: 'March to May and October to November for clear skies and mild weather.',
+        days: '3-5 days to explore tea estates, monasteries, and nearby Kalimpong.',
+        attractions: ['Tiger Hill', 'Darjeeling Himalayan Railway', 'Batasia Loop', 'Ghoom Monastery', 'Peace Pagoda']
+      }
+    };
+
+    // Search functionality
+    const searchBtn = document.getElementById('search-btn');
+    const destinationInput = document.getElementById('destination-input');
+    const resultsSection = document.getElementById('results-section');
+    const resultsContainer = document.getElementById('results-container');
+    const loadingSpinner = document.getElementById('loading-spinner');
+
+    searchBtn.addEventListener('click', () => {
+      const destination = destinationInput.value.trim().toLowerCase().replace(/\s+/g, '');
+      resultsContainer.innerHTML = '';
+      resultsSection.classList.add('hidden');
+      loadingSpinner.style.display = 'block';
+
+      setTimeout(() => {
+        loadingSpinner.style.display = 'none';
+        if (destinationData[destination]) {
+          const data = destinationData[destination];
+          resultsContainer.innerHTML = `
+            <div class="result-card rounded-lg shadow-lg p-6">
+              <h3 class="text-2xl font-semibold text-teal-700 mb-2 capitalize">${destination}</h3>
+              <p class="mb-4">${data.description}</p>
+              <p class="mb-2"><strong>Best Time to Visit:</strong> ${data.bestTime}</p>
+              <p class="mb-4"><strong>Recommended Stay:</strong> ${data.days}</p>
+              <h4 class="text-lg font-semibold text-teal-800 mb-2">Top Attractions:</h4>
+              <ul class="list-disc list-inside">
+                ${data.attractions.map(attraction => `<li>${attraction}</li>`).join('')}
+              </ul>
+            </div>
+          `;
+          resultsSection.classList.remove('hidden');
+        } else {
+          resultsContainer.innerHTML = `
+            <div class="result-card rounded-lg shadow-lg p-6">
+              <h3 class="text-2xl font-semibold text-teal-700 mb-2">Destination Not Found</h3>
+              <p class="mb-4">Sorry, we don't have information on "${destinationInput.value}". Try destinations like Paris, Tokyo, Bali, New York, Kerala, or Darjeeling.</p>
+            </div>
+          `;
+          resultsSection.classList.remove('hidden');
         }
+      }, 1000); // Simulate API delay
+    });
 
-        function init() {
-            for (let i = 0; i < numberOfParticles; i++) {
-                particlesArray.push(new Particle());
-            }
-        }
-
-        function animateParticles() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            for (let i = 0; i < particlesArray.length; i++) {
-                particlesArray[i].update();
-                particlesArray[i].draw();
-                if (particlesArray[i].size <= 0.2) {
-                    particlesArray.splice(i, 1);
-                    i--;
-                    particlesArray.push(new Particle());
-                }
-            }
-            requestAnimationFrame(animateParticles);
-        }
-
-        init();
-        animateParticles();
-
-        window.addEventListener('resize', () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        });
-
-        // Search functionality
-        const searchButton = document.getElementById('searchButton');
-        const searchInput = document.getElementById('searchInput');
-        const searchResults = document.getElementById('searchResults');
-        const destinationName = document.getElementById('destinationName');
-        const resultsContent = document.getElementById('resultsContent');
-
-        // Sample data for destinations (simulating a database or API response)
-        const destinations = {
-            "darjeeling": {
-                description: "Darjeeling, nestled in the Himalayas of West Bengal, India, is renowned for its lush tea gardens, stunning views of Kanchenjunga, and colonial charm. Known as the 'Queen of Hills,' it offers a serene escape with its cool climate and scenic landscapes.",
-                duration: "3-4 days",
-                topPlaces: [
-                    "Tiger Hill - Famous for sunrise views over the Himalayas.",
-                    "Darjeeling Himalayan Railway (Toy Train) - A UNESCO World Heritage site offering scenic rides.",
-                    "Tea Gardens - Explore estates like Happy Valley Tea Estate.",
-                    "Batasia Loop - A railway loop with panoramic views and a war memorial.",
-                    "Peace Pagoda - A serene Buddhist stupa with stunning views."
-                ]
-            },
-            "bali": {
-                description: "Bali, an Indonesian paradise, is famous for its white sandy beaches, vibrant coral reefs, and lush jungles. From cultural experiences in Ubud to overwater bungalows, Bali offers a perfect blend of relaxation and adventure.",
-                duration: "5-7 days",
-                topPlaces: [
-                    "Ubud Monkey Forest - A sanctuary with ancient temples and playful monkeys.",
-                    "Tanah Lot Temple - A scenic oceanfront temple perfect for sunset views.",
-                    "Seminyak Beach - Known for its upscale beach clubs and vibrant nightlife.",
-                    "Tegallalang Rice Terraces - Iconic green terraces offering stunning photo opportunities.",
-                    "Nusa Penida - An island with dramatic cliffs and pristine beaches like Kelingking Beach."
-                ]
-            },
-            "paris": {
-                description: "Paris, the capital of France, is a city of romance, art, and history. Known as the 'City of Light,' it boasts iconic landmarks, world-class museums, and charming streets filled with cafes and boutiques.",
-                duration: "4-6 days",
-                topPlaces: [
-                    "Eiffel Tower - The iconic symbol of Paris with breathtaking views.",
-                    "Louvre Museum - Home to the Mona Lisa and thousands of artworks.",
-                    "Notre-Dame Cathedral - A masterpiece of Gothic architecture.",
-                    "Montmartre - A historic district with the stunning Sacré-Cœur Basilica.",
-                    "Champs-Élysées & Arc de Triomphe - Perfect for a scenic stroll and history."
-                ]
-            }
-        };
-
-        searchButton.addEventListener('click', () => {
-            const query = searchInput.value.trim().toLowerCase();
-            if (query === '') {
-                alert('Please enter a destination to search.');
-                return;
-            }
-
-            // Show the results section
-            searchResults.classList.remove('hidden');
-            destinationName.textContent = query.charAt(0).toUpperCase() + query.slice(1);
-
-            // Simulate a Google search and fetch data for the destination
-            let resultHtml = '';
-            if (destinations[query]) {
-                const destination = destinations[query];
-                resultHtml = `
-                    <div class="animate-fadeSlideRotate">
-                        <h3 class="text-2xl font-semibold text-teal-600 mb-2">Description</h3>
-                        <p>${destination.description}</p>
-                    </div>
-                    <div class="animate-fadeSlideRotate" style="animation-delay: 0.3s;">
-                        <h3 class="text-2xl font-semibold text-teal-600 mb-2">Recommended Trip Duration</h3>
-                        <p>${destination.duration}</p>
-                    </div>
-                    <div class="animate-fadeSlideRotate" style="animation-delay: 0.6s;">
-                        <h3 class="text-2xl font-semibold text-teal-600 mb-2">Top Places to Visit</h3>
-                        <ul class="list-disc pl-5 space-y-2">
-                            ${destination.topPlaces.map(place => `<li>${place}</li>`).join('')}
-                        </ul>
-                    </div>
-                `;
-            } else {
-                resultHtml = `
-                    <p class="animate-fadeSlideRotate">No detailed information found for "${query}". Try searching for destinations like Darjeeling, Bali, or Paris.</p>
-                `;
-            }
-
-            resultsContent.innerHTML = resultHtml;
-
-            // Scroll to results section
-            searchResults.scrollIntoView({ behavior: 'smooth' });
-        });
-
-        // Allow search on Enter key press
-        searchInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                searchButton.click();
-            }
-        });
-    </script>
+    // Allow Enter key to trigger search
+    destinationInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        searchBtn.click();
+      }
+    });
+  </script>
 </body>
 </html>
