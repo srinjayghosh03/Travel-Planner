@@ -39,32 +39,27 @@
       margin-bottom: 40px;
     }
 
-    .search-box form {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
-
-    input[type="text"] {
+    .search-box form select,
+    .search-box form input[type="submit"] {
       padding: 12px 20px;
       font-size: 1em;
-      border: 2px solid #0077cc;
       border-radius: 10px;
-      outline: none;
+      margin: 10px;
     }
 
-    input[type="submit"] {
+    .search-box form select {
+      border: 2px solid #0077cc;
+    }
+
+    .search-box form input[type="submit"] {
       background-color: #0077cc;
       color: white;
-      padding: 12px;
-      font-size: 1em;
       border: none;
-      border-radius: 10px;
       cursor: pointer;
       transition: background 0.3s;
     }
 
-    input[type="submit"]:hover {
+    .search-box form input[type="submit"]:hover {
       background-color: #005fa3;
     }
 
@@ -111,14 +106,13 @@
 
 <div class="search-box">
   <form action="" method="get">
-    <input type="text" name="state" list="states" placeholder="Enter a state or UT (e.g., Kerala)" required>
-    <datalist id="states">
-      <option value="#westbengal">
-      <option value="#rajasthan">
-      <option value="#kerala">
-      <!-- Add more options here -->
-    </datalist>
-    <input type="submit" value="Explore">
+    <select onchange="location = this.value;">
+      <option value="#">-- Choose a State or UT --</option>
+      <option value="#westbengal">West Bengal</option>
+      <option value="#rajasthan">Rajasthan</option>
+      <option value="#kerala">Kerala</option>
+      <!-- Add more states -->
+    </select>
   </form>
 </div>
 
