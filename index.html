@@ -2,22 +2,23 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Travel Planner - Explore India</title>
+  <title>Travel Planner</title>
   <style>
     body {
       margin: 0;
+      padding: 0;
       font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(135deg, #00c3ff, #ffff1c);
-      min-height: 100vh;
+      background: linear-gradient(135deg, #2BC0E4, #EAECC6);
       display: flex;
       flex-direction: column;
       align-items: center;
+      min-height: 100vh;
     }
 
     header {
       text-align: center;
       color: white;
-      padding: 60px 20px 40px;
+      margin-top: 60px;
     }
 
     header h1 {
@@ -25,60 +26,54 @@
       margin-bottom: 10px;
     }
 
-    header p {
-      font-size: 1.2em;
-      margin: 0;
-    }
-
-    .search-box {
+    .search-container {
+      margin: 40px 0;
       background: white;
       padding: 30px;
-      border-radius: 20px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-      text-align: center;
-      margin-bottom: 40px;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+      display: flex;
+      gap: 15px;
+      align-items: center;
     }
 
-    .search-box form select,
-    .search-box form input[type="submit"] {
-      padding: 12px 20px;
+    .search-container input {
+      padding: 10px 20px;
       font-size: 1em;
+      border: 2px solid #2BC0E4;
       border-radius: 10px;
-      margin: 10px;
+      outline: none;
+      width: 250px;
     }
 
-    .search-box form select {
-      border: 2px solid #0077cc;
-    }
-
-    .search-box form input[type="submit"] {
-      background-color: #0077cc;
+    .search-container button {
+      padding: 10px 20px;
+      background-color: #2BC0E4;
       color: white;
       border: none;
+      border-radius: 10px;
+      font-size: 1em;
       cursor: pointer;
       transition: background 0.3s;
     }
 
-    .search-box form input[type="submit"]:hover {
-      background-color: #005fa3;
+    .search-container button:hover {
+      background-color: #1b9bbd;
     }
 
-    section {
-      max-width: 700px;
+    .result {
       background: white;
-      margin: 40px 20px;
       padding: 30px;
       border-radius: 15px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+      max-width: 600px;
+      text-align: left;
       display: none;
+      animation: fadeIn 0.3s ease-in-out;
     }
 
-    section:target {
-      display: block;
-    }
-
-    h2 {
-      color: #0077cc;
+    .result h2 {
+      color: #2BC0E4;
       margin-top: 0;
     }
 
@@ -86,63 +81,116 @@
       margin-top: auto;
       padding: 20px;
       text-align: center;
-      background-color: rgba(255, 255, 255, 0.3);
+      font-size: 0.9em;
       color: #333;
     }
 
-    @media (max-width: 600px) {
-      header h1 {
-        font-size: 2em;
+    @keyframes fadeIn {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+
+    @media (max-width: 500px) {
+      .search-container {
+        flex-direction: column;
+      }
+
+      .search-container input {
+        width: 100%;
+      }
+
+      .search-container button {
+        width: 100%;
       }
     }
   </style>
 </head>
 <body>
 
-<header>
-  <h1>Travel Planner</h1>
-  <p>Discover the best time and place to explore India</p>
-</header>
+  <header>
+    <h1>Travel Planner</h1>
+    <p>Find the best time to visit Indian states</p>
+  </header>
 
-<div class="search-box">
-  <form action="" method="get">
-    <select onchange="location = this.value;">
-      <option value="#">-- Choose a State or UT --</option>
-      <option value="#westbengal">West Bengal</option>
-      <option value="#rajasthan">Rajasthan</option>
-      <option value="#kerala">Kerala</option>
-      <!-- Add more states -->
-    </select>
-  </form>
-</div>
+  <div class="search-container">
+    <input type="text" id="stateInput" placeholder="Type a state or UT name">
+    <button onclick="searchState()">Search</button>
+  </div>
 
-<!-- SECTION: West Bengal -->
-<section id="westbengal">
-  <h2>West Bengal</h2>
-  <p><strong>Geographical Location:</strong> Eastern India, bordering Bangladesh, Bihar, Jharkhand, Odisha, and the Bay of Bengal.</p>
-  <p><strong>Best Time to Visit:</strong> October to March.</p>
-  <p><strong>Recommended Days to Visit:</strong> 7-10 days.</p>
-</section>
+  <div class="result" id="resultBox">
+    <h2 id="stateName"></h2>
+    <p><strong>Geographical Location:</strong> <span id="location"></span></p>
+    <p><strong>Best Time to Visit:</strong> <span id="bestTime"></span></p>
+    <p><strong>Recommended Days to Visit:</strong> <span id="days"></span></p>
+  </div>
 
-<!-- SECTION: Rajasthan -->
-<section id="rajasthan">
-  <h2>Rajasthan</h2>
-  <p><strong>Geographical Location:</strong> Northwestern India, bordered by Pakistan, Gujarat, Madhya Pradesh, and Haryana.</p>
-  <p><strong>Best Time to Visit:</strong> November to February.</p>
-  <p><strong>Recommended Days to Visit:</strong> 8-12 days.</p>
-</section>
+  <div class="footer">
+    © 2025 Travel Planner by Srinjay Ghosh
+  </div>
 
-<!-- SECTION: Kerala -->
-<section id="kerala">
-  <h2>Kerala</h2>
-  <p><strong>Geographical Location:</strong> Southwestern India, along the Arabian Sea, bordered by Karnataka and Tamil Nadu.</p>
-  <p><strong>Best Time to Visit:</strong> September to March.</p>
-  <p><strong>Recommended Days to Visit:</strong> 6-9 days.</p>
-</section>
+  <script>
+    const states = {
+      "west bengal": {
+        location: "Eastern India, bordering Bangladesh, Bihar, Jharkhand, Odisha, and the Bay of Bengal.",
+        bestTime: "October to March",
+        days: "7-10 days"
+      },
+      "kerala": {
+        location: "Southwestern India, along the Arabian Sea, bordered by Karnataka and Tamil Nadu.",
+        bestTime: "September to March",
+        days: "6-9 days"
+      },
+      "rajasthan": {
+        location: "Northwestern India, bordered by Pakistan, Gujarat, Madhya Pradesh, and Haryana.",
+        bestTime: "November to February",
+        days: "8-12 days"
+      },
+      "delhi": {
+        location: "North-Central India, surrounded by Haryana and Uttar Pradesh.",
+        bestTime: "October to March",
+        days: "3-5 days"
+      },
+      "goa": {
+        location: "Western India, along the Arabian Sea, bordered by Maharashtra and Karnataka.",
+        bestTime: "November to February",
+        days: "4-6 days"
+      }
+      // Add more states as needed
+    };
 
-<div class="footer">
-  © 2025 Travel Planner by Srinjay Ghosh | All rights reserved
-</div>
+    function searchState() {
+      const input = document.getElementById('stateInput').value.trim().toLowerCase();
+      const result = states[input];
+
+      const resultBox = document.getElementById('resultBox');
+      const stateName = document.getElementById('stateName');
+      const location = document.getElementById('location');
+      const bestTime = document.getElementById('bestTime');
+      const days = document.getElementById('days');
+
+      if (result) {
+        stateName.textContent = input.charAt(0).toUpperCase() + input.slice(1);
+        location.textContent = result.location;
+        bestTime.textContent = result.bestTime;
+        days.textContent = result.days;
+        resultBox.style.display = 'block';
+      } else {
+        stateName.textContent = "State not found";
+        location.textContent = "-";
+        bestTime.textContent = "-";
+        days.textContent = "-";
+        resultBox.style.display = 'block';
+      }
+    }
+
+    // Allow Enter key to trigger search
+    document.getElementById("stateInput").addEventListener("keypress", function(e) {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        searchState();
+      }
+    });
+  </script>
 
 </body>
 </html>
