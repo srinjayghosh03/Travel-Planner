@@ -2,120 +2,109 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Travel Planner</title>
-  <script src="https://cdn.jsdelivr.net/npm/react@18.2.0/umd/react.production.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/babel-standalone@7.22.10/babel.min.js"></script>
-  <link href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-</head>
-<body class="bg-gray-100">
-  <div id="root"></div>
-  <script type="text/babel">
-    const { useState } = React;
-
-    // Sample data for Indian states and union territories
-    const travelData = [
-      {
-        name: "Kerala",
-        description: "Known as 'God's Own Country', Kerala is famous for its backwaters, lush greenery, and vibrant culture.",
-        location: "Southwestern coast of India, bordered by Tamil Nadu and Karnataka.",
-        bestTime: "September to March",
-        topPlaces: [
-          "Munnar - Hill station with tea plantations",
-          "Alleppey - Famous for backwater houseboat rides",
-          "Kochi - Historic port city with Chinese fishing nets",
-          "Wayanad - Scenic hills and wildlife sanctuaries",
-          "Kovalam - Beautiful beaches and lighthouse"
-        ]
-      },
-      {
-        name: "Rajasthan",
-        description: "The land of kings, known for its majestic forts, palaces, and vibrant desert culture.",
-        location: "Northwestern India, bordered by Pakistan to the west.",
-        bestTime: "October to March",
-        topPlaces: [
-          "Jaipur - Pink City with Amber Fort",
-          "Udaipur - City of Lakes with City Palace",
-          "Jaisalmer - Golden city with desert camps",
-          "Jodhpur - Blue city with Mehrangarh Fort",
-          "Pushkar - Holy city with sacred lake"
-        ]
-      },
-      {
-        name: "Delhi",
-        description: "The capital of India, a blend of historical monuments and modern urban life.",
-        location: "Northern India, along the Yamuna River.",
-        bestTime: "October to March",
-        topPlaces: [
-          "Red Fort - Mughal architectural marvel",
-          "Qutub Minar - Tallest brick minaret",
-          "India Gate - War memorial",
-          "Lotus Temple - Unique Baháʼí temple",
-          "Humayun's Tomb - Mughal emperor's tomb"
-        ]
-      }
-      // Add more states/UTs as needed
-    ];
-
-    function App() {
-      const [searchTerm, setSearchTerm] = useState("");
-      const [selectedPlace, setSelectedPlace] = useState(null);
-
-      const handleSearch = (e) => {
-        e.preventDefault();
-        const place = travelData.find(
-          (item) => item.name.toLowerCase() === searchTerm.toLowerCase()
-        );
-        setSelectedPlace(place || null);
-        if (!place) {
-          alert("No information found for this place. Try another state or union territory.");
-        }
-      };
-
-      return (
-        <div className="min-h-screen bg-gray-100 flex flex-col items-center p-4">
-          <h1 className="text-4xl font-bold text-blue-600 mb-6">Travel Planner</h1>
-          
-          {/* Search Bar */}
-          <div className="w-full max-w-md mb-8">
-            <form onSubmit={handleSearch} className="flex">
-              <input
-                type="text"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                placeholder="Enter Indian State or Union Territory"
-                className="w-full p-3 rounded-l-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-              <button
-                type="submit"
-                className="p-3 bg-blue-600 text-white rounded-r-lg hover:bg-blue-700"
-              >
-                Search
-              </button>
-            </form>
-          </div>
-
-          {/* Display Results */}
-          {selectedPlace && (
-            <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-2xl">
-              <h2 className="text-2xl font-semibold text-gray-800 mb-4">{selectedPlace.name}</h2>
-              <p className="text-gray-600 mb-2"><strong>Description:</strong> {selectedPlace.description}</p>
-              <p className="text-gray-600 mb-2"><strong>Geographical Location:</strong> {selectedPlace.location}</p>
-              <p className="text-gray-600 mb-4"><strong>Best Time to Visit:</strong> {selectedPlace.bestTime}</p>
-              <h3 className="text-xl font-medium text-gray-700 mb-2">Top 5 Places to Visit:</h3>
-              <ul className="list-disc list-inside text-gray-600">
-                {selectedPlace.topPlaces.map((place, index) => (
-                  <li key={index}>{place}</li>
-                ))}
-              </ul>
-            </div>
-          )}
-        </div>
-      );
+  <title>Travel Planner - Explore India</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      background: #f2f4f7;
+      color: #333;
     }
 
-    ReactDOM.render(<App />, document.getElementById("root"));
-  </script>
+    header {
+      background: linear-gradient(to right, #4facfe, #00f2fe);
+      padding: 20px;
+      text-align: center;
+      color: white;
+    }
+
+    h1 {
+      margin: 0;
+    }
+
+    .selector {
+      background: white;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    select {
+      padding: 10px;
+      font-size: 16px;
+    }
+
+    section {
+      padding: 40px 20px;
+      margin: 20px auto;
+      background: white;
+      border-radius: 10px;
+      max-width: 700px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      color: #0077cc;
+    }
+
+    .footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 14px;
+      background-color: #eee;
+      margin-top: 40px;
+    }
+
+    a {
+      text-decoration: none;
+      color: #0077cc;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Travel Planner - Explore India</h1>
+  <p>Choose a state or union territory to plan your visit</p>
+</header>
+
+<div class="selector">
+  <form action="#">
+    <label for="states">Select a location:</label>
+    <select id="states" onchange="location = this.value;">
+      <option value="#">-- Select a State or UT --</option>
+      <option value="#westbengal">West Bengal</option>
+      <option value="#rajasthan">Rajasthan</option>
+      <option value="#kerala">Kerala</option>
+      <!-- Add more states here -->
+    </select>
+  </form>
+</div>
+
+<section id="westbengal">
+  <h2>West Bengal</h2>
+  <p><strong>Geographical Location:</strong> Eastern India, bordering Bangladesh, Bihar, Jharkhand, Odisha, and the Bay of Bengal.</p>
+  <p><strong>Best Time to Visit:</strong> October to March.</p>
+  <p><strong>Recommended Days to Visit:</strong> 7-10 days.</p>
+</section>
+
+<section id="rajasthan">
+  <h2>Rajasthan</h2>
+  <p><strong>Geographical Location:</strong> Northwestern India, bordered by Pakistan and Indian states like Gujarat, Madhya Pradesh, and Haryana.</p>
+  <p><strong>Best Time to Visit:</strong> November to February.</p>
+  <p><strong>Recommended Days to Visit:</strong> 8-12 days.</p>
+</section>
+
+<section id="kerala">
+  <h2>Kerala</h2>
+  <p><strong>Geographical Location:</strong> Southwestern coast of India, along the Arabian Sea, bordered by Karnataka and Tamil Nadu.</p>
+  <p><strong>Best Time to Visit:</strong> September to March.</p>
+  <p><strong>Recommended Days to Visit:</strong> 6-9 days.</p>
+</section>
+
+<div class="footer">
+  Made with ❤️ by Srinjay Ghosh | Travel Planner
+</div>
+
 </body>
 </html>
