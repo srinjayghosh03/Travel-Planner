@@ -109,11 +109,11 @@
 
   <header>
     <h1>Travel Planner</h1>
-    <p>Find the best time to visit Indian states</p>
+    <p>Discover the beauty of India's 28 states</p>
   </header>
 
   <div class="search-container">
-    <input type="text" id="stateInput" placeholder="Type a state or UT name">
+    <input type="text" id="stateInput" placeholder="Type a state name">
     <button onclick="searchState()">Search</button>
   </div>
 
@@ -122,6 +122,7 @@
     <p><strong>Geographical Location:</strong> <span id="location"></span></p>
     <p><strong>Best Time to Visit:</strong> <span id="bestTime"></span></p>
     <p><strong>Recommended Days to Visit:</strong> <span id="days"></span></p>
+    <p><strong>Description:</strong> <span id="description"></span></p>
   </div>
 
   <div class="footer">
@@ -130,67 +131,92 @@
 
   <script>
     const states = {
-      "west bengal": {
-        location: "Eastern India, bordering Bangladesh, Bihar, Jharkhand, Odisha, and the Bay of Bengal.",
+      "andhra pradesh": {
+        location: "Southeastern coast of India, bordered by Telangana, Chhattisgarh, Tamil Nadu, Karnataka, and the Bay of Bengal.",
         bestTime: "October to March",
-        days: "7-10 days"
+        days: "5-7 days",
+        description: "Andhra Pradesh is renowned for its rich cultural heritage, historic temples, and scenic beaches. The state offers a blend of ancient traditions and modern attractions, making it a diverse travel destination."
       },
-      "kerala": {
-        location: "Southwestern India, along the Arabian Sea, bordered by Karnataka and Tamil Nadu.",
-        bestTime: "September to March",
-        days: "6-9 days"
+      "arunachal pradesh": {
+        location: "Northeastern tip of India, sharing borders with Bhutan, China, and Myanmar.",
+        bestTime: "October to April",
+        days: "6-8 days",
+        description: "Arunachal Pradesh, known as the 'Land of the Rising Sun', boasts pristine landscapes, tribal cultures, and serene monasteries. Its untouched beauty offers a tranquil retreat for nature enthusiasts."
       },
-      "rajasthan": {
-        location: "Northwestern India, bordered by Pakistan, Gujarat, Madhya Pradesh, and Haryana.",
-        bestTime: "November to February",
-        days: "8-12 days"
+      "assam": {
+        location: "Northeastern India, bordered by Bhutan, Arunachal Pradesh, Nagaland, Manipur, Meghalaya, Tripura, Mizoram, and West Bengal.",
+        bestTime: "November to March",
+        days: "5-7 days",
+        description: "Assam is famous for its lush tea gardens, the mighty Brahmaputra River, and rich biodiversity. The state offers a unique blend of cultural festivals and natural beauty."
       },
-      "delhi": {
-        location: "North-Central India, surrounded by Haryana and Uttar Pradesh.",
+      "bihar": {
+        location: "Eastern India, bordered by Nepal, Uttar Pradesh, Jharkhand, and West Bengal.",
         bestTime: "October to March",
-        days: "3-5 days"
+        days: "4-6 days",
+        description: "Bihar is a land of ancient history, home to significant Buddhist sites like Bodh Gaya. Its rich cultural heritage and historical landmarks make it a fascinating destination."
+      },
+      "chhattisgarh": {
+        location: "Central India, bordered by Madhya Pradesh, Maharashtra, Telangana, Odisha, Jharkhand, and Uttar Pradesh.",
+        bestTime: "October to March",
+        days: "5-7 days",
+        description: "Chhattisgarh offers dense forests, waterfalls, and tribal cultures. It's an offbeat destination for those seeking natural beauty and cultural experiences."
       },
       "goa": {
-        location: "Western India, along the Arabian Sea, bordered by Maharashtra and Karnataka.",
+        location: "Western coast of India, bordered by Maharashtra, Karnataka, and the Arabian Sea.",
         bestTime: "November to February",
-        days: "4-6 days"
-      }
-      // Add more states as needed
-    };
-
-    function searchState() {
-      const input = document.getElementById('stateInput').value.trim().toLowerCase();
-      const result = states[input];
-
-      const resultBox = document.getElementById('resultBox');
-      const stateName = document.getElementById('stateName');
-      const location = document.getElementById('location');
-      const bestTime = document.getElementById('bestTime');
-      const days = document.getElementById('days');
-
-      if (result) {
-        stateName.textContent = input.charAt(0).toUpperCase() + input.slice(1);
-        location.textContent = result.location;
-        bestTime.textContent = result.bestTime;
-        days.textContent = result.days;
-        resultBox.style.display = 'block';
-      } else {
-        stateName.textContent = "State not found";
-        location.textContent = "-";
-        bestTime.textContent = "-";
-        days.textContent = "-";
-        resultBox.style.display = 'block';
-      }
-    }
-
-    // Allow Enter key to trigger search
-    document.getElementById("stateInput").addEventListener("keypress", function(e) {
-      if (e.key === "Enter") {
-        e.preventDefault();
-        searchState();
-      }
-    });
-  </script>
-
-</body>
-</html>
+        days: "4-6 days",
+        description: "Goa is renowned for its sandy beaches, vibrant nightlife, and Portuguese heritage. It's a popular destination for relaxation and cultural exploration."
+      },
+      "gujarat": {
+        location: "Western India, bordered by Rajasthan, Madhya Pradesh, Maharashtra, and the Arabian Sea.",
+        bestTime: "November to February",
+        days: "6-8 days",
+        description: "Gujarat is known for its historical sites, wildlife sanctuaries, and vibrant festivals. The state's diverse attractions cater to various interests."
+      },
+      "haryana": {
+        location: "Northern India, surrounding Delhi and bordered by Punjab, Himachal Pradesh, and Uttar Pradesh.",
+        bestTime: "October to March",
+        days: "3-5 days",
+        description: "Haryana offers a mix of urban development and rural charm. It's known for its rich history, agriculture, and cultural heritage."
+      },
+      "himachal pradesh": {
+        location: "Northern India, bordered by Jammu and Kashmir, Punjab, Haryana, Uttarakhand, and Tibet.",
+        bestTime: "March to June and September to December",
+        days: "6-9 days",
+        description: "Himachal Pradesh is a mountainous state known for its hill stations, trekking routes, and scenic beauty. It's a haven for nature lovers and adventure seekers."
+      },
+      "jharkhand": {
+        location: "Eastern India, bordered by Bihar, Uttar Pradesh, Chhattisgarh, Odisha, and West Bengal.",
+        bestTime: "October to March",
+        days: "4-6 days",
+        description: "Jharkhand is rich in minerals and forests, offering waterfalls, wildlife sanctuaries, and tribal cultures. It's an emerging destination for eco-tourism."
+      },
+      "karnataka": {
+        location: "Southwestern India, bordered by Goa, Maharashtra, Telangana, Andhra Pradesh, Tamil Nadu, Kerala, and the Arabian Sea.",
+        bestTime: "October to March",
+        days: "6-8 days",
+        description: "Karnataka boasts a diverse landscape with beaches, hills, and historical sites. It's home to UNESCO World Heritage sites and vibrant cities."
+      },
+      "kerala": {
+        location: "Southwestern tip of India, bordered by Karnataka, Tamil Nadu, and the Arabian Sea.",
+        bestTime: "September to March",
+        days: "6-9 days",
+        description: "Kerala, known as 'God's Own Country', offers backwaters, beaches, and lush greenery. It's famous for its Ayurvedic treatments and cultural festivals."
+      },
+      "madhya pradesh": {
+        location: "Central India, bordered by Uttar Pradesh, Chhattisgarh, Maharashtra, Gujarat, and Rajasthan.",
+        bestTime: "October to March",
+        days: "6-8 days",
+        description: "Madhya Pradesh is rich in history and wildlife, featuring ancient temples, forts, and national parks. It's a cultural and natural treasure trove."
+      },
+      "maharashtra": {
+        location: "Western India, bordered by Gujarat, Madhya Pradesh, Chhattisgarh, Telangana, Karnataka, Goa, and the Arabian Sea.",
+        bestTime: "October to March",
+        days: "6-9 days",
+        description: "Maharashtra is a blend of bustling cities, historical sites, and scenic landscapes. It's home to Mumbai, the financial capital of India."
+      },
+      "manipur": {
+        location: "Northeastern India, bordered by Nagaland, Mizoram, Assam, and Myanmar.",
+       
+::contentReference[oaicite:0]{index=0}
+ 
