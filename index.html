@@ -77,6 +77,20 @@
       margin-top: 0;
     }
 
+    .result ul {
+      margin-top: 10px;
+      padding-left: 20px;
+    }
+
+    .result a {
+      color: #2BC0E4;
+      text-decoration: none;
+    }
+
+    .result a:hover {
+      text-decoration: underline;
+    }
+
     .footer {
       margin-top: auto;
       padding: 20px;
@@ -119,10 +133,18 @@
 
   <div class="result" id="resultBox">
     <h2 id="stateName"></h2>
+    <p><strong>Capital:</strong> <span id="capital"></span></p>
     <p><strong>Geographical Location:</strong> <span id="location"></span></p>
     <p><strong>Best Time to Visit:</strong> <span id="bestTime"></span></p>
     <p><strong>Recommended Days to Visit:</strong> <span id="days"></span></p>
     <p><strong>Description:</strong> <span id="description"></span></p>
+    <p><strong>Top 10 Places to Visit:</strong></p>
+    <ul id="topPlaces"></ul>
+    <p><strong>Plan Your Trip:</strong></p>
+    <ul>
+      <li><a id="makeMyTripLink" href="#" target="_blank">MakeMyTrip</a></li>
+      <li><a id="yatraLink" href="#" target="_blank">Yatra.com</a></li>
+    </ul>
   </div>
 
   <div class="footer">
@@ -132,91 +154,362 @@
   <script>
     const states = {
       "andhra pradesh": {
+        capital: "Amaravati",
         location: "Southeastern coast of India, bordered by Telangana, Chhattisgarh, Tamil Nadu, Karnataka, and the Bay of Bengal.",
         bestTime: "October to March",
         days: "5-7 days",
-        description: "Andhra Pradesh is renowned for its rich cultural heritage, historic temples, and scenic beaches. The state offers a blend of ancient traditions and modern attractions, making it a diverse travel destination."
+        description: "Andhra Pradesh is famed for its cultural heritage, historic temples, and scenic beaches. Visitors can explore ancient architecture, savor spicy cuisine, and enjoy coastal beauty along the Bay of Bengal.",
+        topPlaces: [
+          "Tirupati - Famous for Sri Venkateswara Temple, a major pilgrimage site.",
+          "Visakhapatnam - Known for its beaches and the scenic Araku Valley.",
+          "Amaravati - Ancient Buddhist site with historic stupas.",
+          "Srisailam - Home to the sacred Mallikarjuna Swamy Temple.",
+          "Vijayawada - Known for Kanaka Durga Temple and Prakasam Barrage.",
+          "Lepakshi - Renowned for its Veerabhadra Temple and mural paintings.",
+          "Gandikota - Called the 'Grand Canyon of India' for its stunning gorge.",
+          "Belum Caves - One of the largest cave systems in India.",
+          "Kurnool - Features historic forts and the Nallamala Hills.",
+          "Horsley Hills - A serene hill station with scenic views."
+        ],
+        makeMyTripLink: "https://www.makemytrip.com/holidays-india/andhra_pradesh-tourism.html",
+        yatraLink: "https://www.yatra.com/india-tour-packages/holidays-in-andhra-pradesh"
       },
       "arunachal pradesh": {
+        capital: "Itanagar",
         location: "Northeastern tip of India, sharing borders with Bhutan, China, and Myanmar.",
         bestTime: "October to April",
         days: "6-8 days",
-        description: "Arunachal Pradesh, known as the 'Land of the Rising Sun', boasts pristine landscapes, tribal cultures, and serene monasteries. Its untouched beauty offers a tranquil retreat for nature enthusiasts."
+        description: "Arunachal Pradesh, the 'Land of the Rising Sun', offers pristine landscapes and tribal cultures. Its serene monasteries and lush valleys make it a haven for nature lovers and adventurers.",
+        topPlaces: [
+          "Tawang - Home to the famous Tawang Monastery and scenic lakes.",
+          "Ziro - Known for its lush valleys and the Ziro Music Festival.",
+          "Itanagar - Features the Ita Fort and Ganga Lake.",
+          "Roing - Offers scenic beauty and the Mayudia Pass.",
+          "Bomdila - Known for its monasteries and apple orchards.",
+          "Namdapha National Park - A biodiversity hotspot with rare wildlife.",
+          "Pasighat - Famous for river rafting on the Siang River.",
+          "Dirang - Offers hot springs and stunning valley views.",
+          "Sela Pass - A high-altitude pass with breathtaking scenery.",
+          "Bhalukpong - Known for its lush greenery and adventure activities."
+        ],
+        makeMyTripLink: "https://www.makemytrip.com/holidays-india/arunachal_pradesh-tourism.html",
+        yatraLink: "https://www.yatra.com/india-tour-packages/holidays-in-arunachal-pradesh"
       },
       "assam": {
+        capital: "Dispur",
         location: "Northeastern India, bordered by Bhutan, Arunachal Pradesh, Nagaland, Manipur, Meghalaya, Tripura, Mizoram, and West Bengal.",
         bestTime: "November to March",
         days: "5-7 days",
-        description: "Assam is famous for its lush tea gardens, the mighty Brahmaputra River, and rich biodiversity. The state offers a unique blend of cultural festivals and natural beauty."
+        description: "Assam is renowned for its tea gardens and the Brahmaputra River. Its rich biodiversity, vibrant festivals, and wildlife sanctuaries like Kaziranga make it a unique travel destination.",
+        topPlaces: [
+          "Kaziranga National Park - Famous for one-horned rhinoceroses.",
+          "Guwahati - Home to Kamakhya Temple and Brahmaputra cruises.",
+          "Majuli - The world’s largest river island with cultural heritage.",
+          "Dibrugarh - Known for its tea estates and serene landscapes.",
+          "Sivasagar - Features historic Ahom dynasty monuments.",
+          "Hajo - A pilgrimage site for Hindus, Muslims, and Buddhists.",
+          "Manas National Park - A UNESCO site with diverse wildlife.",
+          "Jorhat - The cultural hub with tea gardens and heritage sites.",
+          "Tezpur - Known for its ancient ruins and scenic beauty.",
+          "Silchar - Offers a blend of culture and natural attractions."
+        ],
+        makeMyTripLink: "https://www.makemytrip.com/holidays-india/assam-tourism.html",
+        yatraLink: "https://www.yatra.com/india-tour-packages/holidays-in-assam"
       },
       "bihar": {
+        capital: "Patna",
         location: "Eastern India, bordered by Nepal, Uttar Pradesh, Jharkhand, and West Bengal.",
         bestTime: "October to March",
         days: "4-6 days",
-        description: "Bihar is a land of ancient history, home to significant Buddhist sites like Bodh Gaya. Its rich cultural heritage and historical landmarks make it a fascinating destination."
+        description: "Bihar, a cradle of ancient history, is home to Buddhist sites like Bodh Gaya. Its historical landmarks and cultural heritage offer a deep dive into India’s spiritual past.",
+        topPlaces: [
+          "Bodh Gaya - Where Buddha attained enlightenment.",
+          "Patna - Features Patna Sahib Gurudwara and ancient ruins.",
+          "Nalanda - Home to the ancient Nalanda University ruins.",
+          "Rajgir - Known for its hot springs and Vishwa Shanti Stupa.",
+          "Vaishali - An ancient city with Buddhist significance.",
+          "Sasaram - Famous for Sher Shah Suri’s tomb.",
+          "Gaya - A major pilgrimage site for Hindus and Buddhists.",
+          "Madhubani - Renowned for its vibrant Mithila art.",
+          "Munger - Known for its historic fort and yoga school.",
+          "Bhagalpur - Famous for its silk and the Vikramshila ruins."
+        ],
+        makeMyTripLink: "https://www.makemytrip.com/holidays-india/bihar-tourism.html",
+        yatraLink: "https://www.yatra.com/india-tour-packages/holidays-in-bihar"
       },
       "chhattisgarh": {
+        capital: "Raipur",
         location: "Central India, bordered by Madhya Pradesh, Maharashtra, Telangana, Odisha, Jharkhand, and Uttar Pradesh.",
         bestTime: "October to March",
         days: "5-7 days",
-        description: "Chhattisgarh offers dense forests, waterfalls, and tribal cultures. It's an offbeat destination for those seeking natural beauty and cultural experiences."
+        description: "Chhattisgarh boasts dense forests, waterfalls, and vibrant tribal cultures. Its natural beauty and ancient caves make it an ideal spot for eco-tourism and cultural exploration.",
+        topPlaces: [
+          "Chitrakote Falls - India’s widest waterfall, often called 'Niagara'.",
+          "Bastar - Known for tribal culture and Dussehra celebrations.",
+          "Raipur - Features the Mahant Ghasidas Museum and Nandanvan Zoo.",
+          "Jagdalpur - Gateway to Bastar and nearby waterfalls.",
+          "Kanger Valley National Park - Offers caves and biodiversity.",
+          "Dhamtari - Known for its dams and tribal heritage.",
+          "Bhoramdeo Temple - A historic temple with intricate carvings.",
+          "Sirpur - An ancient site with Buddhist and Hindu ruins.",
+          "Mainpat - A hill station with scenic valleys and monasteries.",
+          "Tirathgarh Falls - A picturesque waterfall near Jagdalpur."
+        ],
+        makeMyTripLink: "https://www.makemytrip.com/holidays-india/chhattisgarh-tourism.html",
+        yatraLink: "https://www.yatra.com/india-tour-packages/holidays-in-chhattisgarh"
       },
       "goa": {
+        capital: "Panaji",
         location: "Western coast of India, bordered by Maharashtra, Karnataka, and the Arabian Sea.",
         bestTime: "November to February",
         days: "4-6 days",
-        description: "Goa is renowned for its sandy beaches, vibrant nightlife, and Portuguese heritage. It's a popular destination for relaxation and cultural exploration."
+        description: "Goa is famous for its sandy beaches and vibrant nightlife. Its Portuguese heritage, historic churches, and lively markets make it a top destination for relaxation and fun.",
+        topPlaces: [
+          "Baga Beach - Known for water sports and nightlife.",
+          "Basilica of Bom Jesus - A UNESCO site with Portuguese architecture.",
+          "Fort Aguada - A historic fort with scenic views.",
+          "Anjuna - Famous for its flea market and hippie vibe.",
+          "Palolem Beach - A serene beach with palm-fringed shores.",
+          "Old Goa - Home to historic churches and colonial sites.",
+          "Dudhsagar Falls - A stunning four-tiered waterfall.",
+          "Calangute Beach - Popular for its vibrant atmosphere.",
+          "Mapusa Market - A bustling market for local goods.",
+          "Colva Beach - Known for its white sands and tranquility."
+        ],
+        makeMyTripLink: "https://www.makemytrip.com/holidays-india/goa-tourism.html",
+        yatraLink: "https://www.yatra.com/india-tour-packages/holidays-in-goa"
       },
       "gujarat": {
+        capital: "Gandhinagar",
         location: "Western India, bordered by Rajasthan, Madhya Pradesh, Maharashtra, and the Arabian Sea.",
         bestTime: "November to February",
         days: "6-8 days",
-        description: "Gujarat is known for its historical sites, wildlife sanctuaries, and vibrant festivals. The state's diverse attractions cater to various interests."
+        description: "Gujarat offers historical sites, wildlife sanctuaries, and vibrant festivals. From the Rann of Kutch to ancient ruins, it’s a diverse destination for culture and adventure seekers.",
+        topPlaces: [
+          "Rann of Kutch - Famous for its white salt desert and festival.",
+          "Ahmedabad - Home to Sabarmati Ashram and historic sites.",
+          "Gir National Park - The only habitat of Asiatic lions.",
+          "Dwarka - A sacred city with the Dwarkadhish Temple.",
+          "Somnath - Known for the Somnath Temple, a Jyotirlinga.",
+          "Vadodara - Features Laxmi Vilas Palace and museums.",
+          "Champaner-Pavagadh - A UNESCO site with ancient ruins.",
+          "Bhuj - Gateway to the Rann and Dattatreya Temple.",
+          "Junagadh - Known for Girnar Hills and Uparkot Fort.",
+          "Saputara - A scenic hill station with lush greenery."
+        ],
+        makeMyTripLink: "https://www.makemytrip.com/holidays-india/gujarat-tourism.html",
+        yatraLink: "https://www.yatra.com/india-tour-packages/holidays-in-gujarat"
       },
       "haryana": {
+        capital: "Chandigarh",
         location: "Northern India, surrounding Delhi and bordered by Punjab, Himachal Pradesh, and Uttar Pradesh.",
         bestTime: "October to March",
         days: "3-5 days",
-        description: "Haryana offers a mix of urban development and rural charm. It's known for its rich history, agriculture, and cultural heritage."
+        description: "Haryana blends urban growth with rural charm. Known for its rich history and agriculture, it offers cultural experiences and historical sites near the capital, Chandigarh.",
+        topPlaces: [
+          "Kurukshetra - A historic site linked to the Mahabharata.",
+          "Chandigarh - Known for Rock Garden and Sukhna Lake.",
+          "Gurgaon - Features modern malls and the Kingdom of Dreams.",
+          "Panipat - Famous for its historic battlefields.",
+          "Faridabad - Offers Surajkund Mela and Badkhal Lake.",
+          "Pinjore - Home to the scenic Yadavindra Gardens.",
+          "Karnal - Known for its historic fort and agricultural heritage.",
+          "Hisar - Features ancient mounds and a historic fort.",
+          "Murthal - Famous for its iconic dhabas and food.",
+          "Sohna - Known for its hot springs and Damdama Lake."
+        ],
+        makeMyTripLink: "https://www.makemytrip.com/holidays-india/haryana-tourism.html",
+        yatraLink: "https://www.yatra.com/india-tour-packages/holidays-in-haryana"
       },
       "himachal pradesh": {
+        capital: "Shimla",
         location: "Northern India, bordered by Jammu and Kashmir, Punjab, Haryana, Uttarakhand, and Tibet.",
         bestTime: "March to June and September to December",
         days: "6-9 days",
-        description: "Himachal Pradesh is a mountainous state known for its hill stations, trekking routes, and scenic beauty. It's a haven for nature lovers and adventure seekers."
+        description: "Himachal Pradesh is a mountainous paradise with hill stations and trekking routes. Its scenic beauty and adventure activities make it a favorite for nature enthusiasts.",
+        topPlaces: [
+          "Shimla - Famous for its colonial charm and Mall Road.",
+          "Manali - Known for Rohtang Pass and adventure sports.",
+          "Dharamshala - Home to the Dalai Lama and Tibetan culture.",
+          "Kullu - Offers river rafting and the Dussehra festival.",
+          "Spiti Valley - A remote desert with ancient monasteries.",
+          "Dalhousie - Known for its scenic beauty and colonial architecture.",
+          "McLeod Ganj - A hub for Tibetan culture and trekking.",
+          "Kasauli - A serene hill station with colonial vibes.",
+          "Chamba - Famous for its ancient temples and scenic valleys.",
+          "Kinnaur - Known for its apple orchards and Kalpa village."
+        ],
+        makeMyTripLink: "https://www.makemytrip.com/holidays-india/himachal_pradesh-tourism.html",
+        yatraLink: "https://www.yatra.com/india-tour-packages/holidays-in-himachal-pradesh"
       },
       "jharkhand": {
+        capital: "Ranchi",
         location: "Eastern India, bordered by Bihar, Uttar Pradesh, Chhattisgarh, Odisha, and West Bengal.",
         bestTime: "October to March",
         days: "4-6 days",
-        description: "Jharkhand is rich in minerals and forests, offering waterfalls, wildlife sanctuaries, and tribal cultures. It's an emerging destination for eco-tourism."
+        description: "Jharkhand is rich in forests and waterfalls. Its tribal cultures and wildlife sanctuaries make it an emerging destination for eco-tourism and cultural exploration.",
+        topPlaces: [
+          "Ranchi - Known for Ranchi Lake and Jagannath Temple.",
+          "Betla National Park - Famous for its wildlife and forests.",
+          "Deoghar - Home to the sacred Baidyanath Temple.",
+          "Jamshedpur - Features Jubilee Park and Tata Steel Zoological Park.",
+          "Hazaribagh - Known for its national park and scenic hills.",
+          "Dassam Falls - A stunning waterfall near Ranchi.",
+          "Netarhat - A hill station called the 'Queen of Chotanagpur'.",
+          "Rajrappa - Famous for the Chhinnamasta Temple.",
+          "Palamu - Offers historic forts and natural beauty.",
+          "Giridih - Known for its Jain pilgrimage sites and hills."
+        ],
+        makeMyTripLink: "https://www.makemytrip.com/holidays-india/jharkhand-tourism.html",
+        yatraLink: "https://www.yatra.com/india-tour-packages/holidays-in-jharkhand"
       },
       "karnataka": {
+        capital: "Bengaluru",
         location: "Southwestern India, bordered by Goa, Maharashtra, Telangana, Andhra Pradesh, Tamil Nadu, Kerala, and the Arabian Sea.",
         bestTime: "October to March",
         days: "6-8 days",
-        description: "Karnataka boasts a diverse landscape with beaches, hills, and historical sites. It's home to UNESCO World Heritage sites and vibrant cities."
+        description: "Karnataka offers beaches, hills, and UNESCO World Heritage sites. From Bengaluru’s tech hub to Hampi’s ruins, it blends modernity with rich historical and natural attractions.",
+        topPlaces: [
+          "Hampi - A UNESCO site with ancient ruins and temples.",
+          "Mysore - Famous for Mysore Palace and Dussehra festival.",
+          "Bengaluru - Known for its tech hub and vibrant nightlife.",
+          "Coorg - A hill station with coffee plantations and waterfalls.",
+          "Gokarna - Offers serene beaches and pilgrimage sites.",
+          "Badami - Known for its rock-cut cave temples.",
+          "Bandipur National Park - A haven for wildlife enthusiasts.",
+          "Udupi - Famous for its Krishna Temple and cuisine.",
+          "Chikmagalur - Known for its coffee estates and hills.",
+          "Jog Falls - One of India’s highest waterfalls."
+        ],
+        makeMyTripLink: "https://www.makemytrip.com/holidays-india/karnataka-tourism.html",
+        yatraLink: "https://www.yatra.com/india-tour-packages/holidays-in-karnataka"
       },
       "kerala": {
+        capital: "Thiruvananthapuram",
         location: "Southwestern tip of India, bordered by Karnataka, Tamil Nadu, and the Arabian Sea.",
         bestTime: "September to March",
         days: "6-9 days",
-        description: "Kerala, known as 'God's Own Country', offers backwaters, beaches, and lush greenery. It's famous for its Ayurvedic treatments and cultural festivals."
+        description: "Kerala, 'God's Own Country', is famed for its backwaters and lush greenery. Its Ayurvedic treatments, cultural festivals, and serene beaches attract travelers seeking relaxation.",
+        topPlaces: [
+          "Alleppey - Famous for its backwaters and houseboat cruises.",
+          "Munnar - Known for its tea plantations and hill station charm.",
+          "Kochi - Offers Fort Kochi and colonial architecture.",
+          "Varkala - A serene beach with dramatic cliffs.",
+          "Thekkady - Home to Periyar National Park and wildlife.",
+          "Kovalam - Known for its crescent-shaped beaches.",
+          "Wayanad - Offers lush forests and Edakkal Caves.",
+          "Thiruvananthapuram - Features the Padmanabhaswamy Temple.",
+          "Kumarakom - A serene spot for backwater tourism.",
+          "Thrissur - Famous for the Thrissur Pooram festival."
+        ],
+        makeMyTripLink: "https://www.makemytrip.com/holidays-india/kerala-tourism.html",
+        yatraLink: "https://www.yatra.com/india-tour-packages/holidays-in-kerala"
       },
       "madhya pradesh": {
+        capital: "Bhopal",
         location: "Central India, bordered by Uttar Pradesh, Chhattisgarh, Maharashtra, Gujarat, and Rajasthan.",
         bestTime: "October to March",
         days: "6-8 days",
-        description: "Madhya Pradesh is rich in history and wildlife, featuring ancient temples, forts, and national parks. It's a cultural and natural treasure trove."
+        description: "Madhya Pradesh is a treasure trove of history and wildlife. Its ancient temples, forts, and national parks offer a mix of cultural and natural experiences.",
+        topPlaces: [
+          "Khajuraho - Famous for its UNESCO-listed erotic temples.",
+          "Sanchi - Home to ancient Buddhist stupas.",
+          "Gwalior - Known for its historic fort and palaces.",
+          "Bhopal - Features the Upper Lake and Taj-ul-Masajid.",
+          "Orchha - Offers historic forts and riverside temples.",
+          "Bandhavgarh National Park - A prime tiger reserve.",
+          "Kanha National Park - Known for its diverse wildlife.",
+          "Ujjain - A sacred city with the Mahakaleshwar Temple.",
+          "Mandu - Famous for its Afghan architecture and forts.",
+          "Pachmarhi - A scenic hill station with caves and waterfalls."
+        ],
+        makeMyTripLink: "https://www.makemytrip.com/holidays-india/madhya_pradesh-tourism.html",
+        yatraLink: "https://www.yatra.com/india-tour-packages/holidays-in-madhya-pradesh"
       },
       "maharashtra": {
+        capital: "Mumbai",
         location: "Western India, bordered by Gujarat, Madhya Pradesh, Chhattisgarh, Telangana, Karnataka, Goa, and the Arabian Sea.",
         bestTime: "October to March",
         days: "6-9 days",
-        description: "Maharashtra is a blend of bustling cities, historical sites, and scenic landscapes. It's home to Mumbai, the financial capital of India."
+        description: "Maharashtra blends bustling Mumbai with historical sites and scenic hills. Its caves, forts, and vibrant culture make it a dynamic destination for all travelers.",
+        topPlaces: [
+          "Mumbai - Home to Gateway of India and Marine Drive.",
+          "Ajanta & Ellora Caves - UNESCO sites with ancient rock art.",
+          "Pune - Known for Aga Khan Palace and Shaniwar Wada.",
+          "Mahabaleshwar - A hill station with scenic viewpoints.",
+          "Lonavala - Famous for its lush hills and waterfalls.",
+          "Nashik - A pilgrimage site with Kalaram Temple.",
+          "Aurangabad - Gateway to Ajanta and Ellora Caves.",
+          "Shirdi - Known for the Sai Baba Temple.",
+          "Tarkarli - Offers pristine beaches and water sports.",
+          "Matheran - A car-free hill station with panoramic views."
+        ],
+        makeMyTripLink: "https://www.makemytrip.com/holidays-india/maharashtra-tourism.html",
+        yatraLink: "https://www.yatra.com/india-tour-packages/holidays-in-maharashtra"
       },
       "manipur": {
+        capital: "Imphal",
         location: "Northeastern India, bordered by Nagaland, Mizoram, Assam, and Myanmar.",
-       
-::contentReference[oaicite:0]{index=0}
- 
+        bestTime: "October to April",
+        days: "5-7 days",
+        description: "Manipur, known for its scenic beauty, is home to Loktak Lake and vibrant tribal cultures. Its dance forms and festivals offer a unique cultural experience.",
+        topPlaces: [
+          "Loktak Lake - Famous for its floating phumdis.",
+          "Imphal - Home to Kangla Fort and Ima Keithel market.",
+          "Keibul Lamjao National Park - The only floating national park.",
+          "Moreh - A vibrant border town with Indo-Myanmar trade.",
+          "Ukhrul - Known for its Shirui Lily and scenic hills.",
+          "Senapati - Offers lush greenery and tribal culture.",
+          "Thoubal - Famous for its markets and cultural heritage.",
+          "Bishnupur - Known for its terracotta temples.",
+          "Tamenglong - Offers orange orchards and waterfalls.",
+          "Churachandpur - A hub for tribal traditions and crafts."
+        ],
+        makeMyTripLink: "https://www.makemytrip.com/holidays-india/manipur-tourism.html",
+        yatraLink: "https://www.yatra.com/india-tour-packages/holidays-in-manipur"
+      }
+    };
+
+    function searchState() {
+      const input = document.getElementById("stateInput").value.toLowerCase().trim();
+      const resultBox = document.getElementById("resultBox");
+      const stateName = document.getElementById("stateName");
+      const capital = document.getElementById("capital");
+      const location = document.getElementById("location");
+      const bestTime = document.getElementById("bestTime");
+      const days = document.getElementById("days");
+      const description = document.getElementById("description");
+      const topPlaces = document.getElementById("topPlaces");
+      const makeMyTripLink = document.getElementById("makeMyTripLink");
+      const yatraLink = document.getElementById("yatraLink");
+
+      if (states[input]) {
+        stateName.textContent = input.split(" ").map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(" ");
+        capital.textContent = states[input].capital;
+        location.textContent = states[input].location;
+        bestTime.textContent = states[input].bestTime;
+        days.textContent = states[input].days;
+        description.textContent = states[input].description;
+        
+        // Clear previous list
+        topPlaces.innerHTML = "";
+        // Populate top places
+        states[input].topPlaces.forEach(place => {
+          const li = document.createElement("li");
+          li.textContent = place;
+          topPlaces.appendChild(li);
+        });
+
+        // Set travel links
+        makeMyTripLink.href = states[input].makeMyTripLink;
+        yatraLink.href = states[input].yatraLink;
+
+        resultBox.style.display = "block";
+      } else {
+        resultBox.style.display = "none";
+        alert("State not found. Please enter a valid Indian state name.");
+      }
+    }
+  </script>
+</body>
+</html>
