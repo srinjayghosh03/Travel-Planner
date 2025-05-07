@@ -4,126 +4,377 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Top 10 Loved Destinations in India</title>
-    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* Custom animations */
-        @keyframes typing {
-            from { width: 0; }
-            to { width: 100%; }
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@400;600&family=Bebas+Neue&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        @keyframes blink {
-            50% { border-color: transparent; }
-        }
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-        @keyframes flipIn {
-            from { opacity: 0; transform: rotateY(-90deg); }
-            to { opacity: 1; transform: rotateY(0deg); }
-        }
-        @keyframes zoomIn {
-            from { opacity: 0; transform: scale(0.9); }
-            to { opacity: 1; transform: scale(1); }
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        @keyframes shimmer {
-            0% { background-position: -200%; }
-            100% { background-position: 200%; }
-        }
-        @keyframes pulseGlow {
-            0% { box-shadow: 0 0 10px rgba(20, 184, 166, 0.5); }
-            50% { box-shadow: 0 0 20px rgba(20, 184, 166, 1); }
-            100% { box-shadow: 0 0 10px rgba(20, 184, 166, 0.5); }
-        }
-        @keyframes ripple {
-            0% { transform: scale(0); opacity: 0.5; }
-            100% { transform: scale(3); opacity: 0; }
-        }
-        @keyframes wave {
-            0%, 100% { transform: rotate(0deg); }
-            25% { transform: rotate(5deg); }
-            75% { transform: rotate(-5deg); }
-        }
-        @keyframes navHover {
-            0% { transform: scale(1); color: #ffffff; }
-            50% { transform: scale(1.1); color: #14b8a6; }
-            100% { transform: scale(1); color: #ffffff; }
-        }
-        .animate-typing {
-            overflow: hidden;
-            white-space: nowrap;
-            border-right: 3px solid #14b8a6;
-            animation: typing 3s steps(40, end) forwards, blink 0.75s step-end infinite;
-        }
-        .animate-float {
-            animation: float 4s ease-in-out infinite;
-        }
-        .animate-flipIn {
-            animation: flipIn 0.8s ease-out forwards;
-        }
-        .animate-zoomIn {
-            animation: zoomIn 0.6s ease-out forwards;
-        }
-        .animate-fadeIn {
-            animation: fadeIn 0.8s ease-out forwards;
-        }
-        .animate-shimmer {
-            background: linear-gradient(90deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.1));
-            background-size: 200%;
-            animation: shimmer 3s infinite;
-        }
-        .animate-pulseGlow {
-            animation: pulseGlow 2s infinite;
-        }
-        .animate-wave:hover {
-            animation: wave 1s infinite;
-        }
-        .nav-hover:hover {
-            animation: navHover 0.5s ease;
-        }
-        /* Gradient background with scroll transition */
+
         body {
-            background: linear-gradient(135deg, #a1c4fd, #c2e9fb);
-            transition: background 1s ease;
-        }
-        body.scrolled {
-            background: linear-gradient(135deg, #c2e9fb, #a1c4fd);
-        }
-        /* Hero section with shimmering background */
-        .hero {
-            background: linear-gradient(180deg, rgba(0, 172, 193, 0.9), rgba(255, 255, 255, 0.3));
-            border-radius: 1.5rem;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(145deg, #1A8B9D, #FF6F61);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             position: relative;
-            overflow: hidden;
+            overflow-x: hidden;
+            color: #333;
         }
-        .hero::before {
+
+        /* Gradient Overlay for Magical Feel */
+        body::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.1));
-            background-size: 200%;
-            animation: shimmer 3s infinite;
+            background: linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 182, 193, 0.2));
+            z-index: -2;
         }
-        /* Smooth typography */
-        h1, h2, h3 {
-            font-family: 'Playfair Display', serif;
+
+        /* Particle Animation Background with Parallax */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+            opacity: 0.3;
         }
-        p, li, button {
-            font-family: 'Poppins', sans-serif;
+
+        .particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            animation: float 15s infinite ease-in-out;
         }
-        /* Decorative underline for destination names */
-        .destination-button {
+
+        .particle:nth-child(1) { width: 20px; height: 20px; top: 10%; left: 15%; animation-delay: 0s; }
+        .particle:nth-child(2) { width: 15px; height: 15px; top: 60%; left: 80%; animation-delay: 2s; }
+        .particle:nth-child(3) { width: 25px; height: 25px; top: 40%; left: 30%; animation-delay: 4s; }
+        .particle:nth-child(4) { width: 10px; height: 10px; top: 80%; left: 50%; animation-delay: 6s; }
+        .particle:nth-child(5) { width: 18px; height: 18px; top: 20%; left: 70%; animation-delay: 8s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) scale(1); opacity: 0.3; }
+            50% { transform: translateY(-50px) scale(1.2); opacity: 0.6; }
+        }
+
+        /* Ghibli-Inspired Fireflies */
+        .fireflies {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .firefly {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            background: #FFD700;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #FFD700;
+            animation: glow 3s infinite ease-in-out, drift 10s infinite ease-in-out;
+        }
+
+        .firefly:nth-child(1) { top: 20%; left: 10%; animation-delay: 0s; }
+        .firefly:nth-child(2) { top: 50%; left: 70%; animation-delay: 1s; }
+        .firefly:nth-child(3) { top: 70%; left: 30%; animation-delay: 2s; }
+        .firefly:nth-child(4) { top: 30%; left: 90%; animation-delay: 3s; }
+
+        @keyframes glow {
+            0%, 100% { opacity: 0.3; box-shadow: 0 0 5px #FFD700; }
+            50% { opacity: 1; box-shadow: 0 0 15px #FFD700; }
+        }
+
+        @keyframes drift {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(20px, -20px); }
+        }
+
+        /* Ghibli-Inspired Drifting Leaves */
+        .leaves {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .leaf {
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background: #98FB98;
+            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+            animation: fall 12s infinite linear;
+        }
+
+        .leaf:nth-child(1) { top: -10%; left: 20%; animation-delay: 0s; }
+        .leaf:nth-child(2) { top: -10%; left: 40%; animation-delay: 2s; }
+        .leaf:nth-child(3) { top: -10%; left: 60%; animation-delay: 4s; }
+        .leaf:nth-child(4) { top: -10%; left: 80%; animation-delay: 6s; }
+
+        @keyframes fall {
+            0% { transform: translateX(0) translateY(-10%) rotate(0deg); opacity: 1; }
+            100% { transform: translateX(50px) translateY(110vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* Totoro-Inspired Character */
+        .totoro {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            width: 80px;
+            height: 80px;
+            background: #808080;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: bounce 2s infinite ease-in-out;
+            z-index: 5;
+        }
+
+        .totoro::before {
+            content: '';
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            background: #fff;
+            border-radius: 50%;
+            top: 10px;
+        }
+
+        .totoro::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: #000;
+            border-radius: 50%;
+            top: 20px;
+            left: 20px;
+            box-shadow: 20px 0 #000;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Header and Navigation */
+        header {
+            width: 100%;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            background: rgba(0, 0, 0, 0.3); /* Reduced opacity for less interference */
+            backdrop-filter: blur(5px); /* Reduced blur intensity */
+        }
+
+        header h1 {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 3em;
+            color: #FFD700; /* Solid color for clarity */
+            animation: subtleGlow 2s infinite alternate; /* Subtle glow instead of heavy shadow */
+        }
+
+        header p {
+            color: #fff;
+            font-size: 0.9em;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); /* Reduced shadow for clarity */
+        }
+
+        @keyframes subtleGlow {
+            0% { text-shadow: 0 0 5px #FFD700; }
+            100% { text-shadow: 0 0 10px #FFD700; }
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1em;
+            padding: 8px 15px;
+            border-radius: 20px;
+            transition: background 0.3s ease, transform 0.2s ease;
             position: relative;
-            display: inline-block;
-            padding-bottom: 8px;
         }
+
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #FF1493, #FFD700);
+            transition: width 0.3s ease, left 0.3s ease;
+        }
+
+        nav ul li a:hover::after {
+            width: 100%;
+            left: 0;
+        }
+
+        nav ul li a:hover {
+            background: #FFD700;
+            color: #1A8B9D;
+            transform: scale(1.05);
+        }
+
+        /* Hero Section with Typing Animation and Wind Swirls */
+        .hero {
+            text-align: center;
+            padding: 40px 20px;
+            margin-bottom: 40px;
+            position: relative;
+            background: rgba(255, 255, 255, 0.05); /* More transparent background */
+            backdrop-filter: blur(3px); /* Reduced blur intensity */
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            border: 2px solid transparent;
+            animation: borderGlow 3s infinite ease-in-out;
+        }
+
+        @keyframes borderGlow {
+            0% { border-color: #1A8B9D; }
+            50% { border-color: #FF6F61; }
+            100% { border-color: #1A8B9D; }
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5em;
+            color: #FFD700; /* Solid color for clarity */
+            overflow: hidden;
+            white-space: nowrap;
+            border-right: 3px solid #FFD700;
+            animation: typing 3s steps(40, end) forwards, blink 0.75s step-end infinite, subtleGlow 2s infinite alternate;
+        }
+
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        @keyframes blink {
+            from, to { border-color: transparent; }
+            50% { border-color: #FFD700; }
+        }
+
+        .hero p {
+            color: #fff;
+            font-size: 1.3em;
+            margin-top: 10px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); /* Reduced shadow */
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Destinations List with Graffiti Splash */
+        #destinationsList {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            max-width: 800px;
+            margin: 0 auto 40px;
+            position: relative;
+            border: 2px solid transparent;
+            animation: borderGlow 3s infinite ease-in-out;
+        }
+
+        #destinationsList::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            width: 80px;
+            height: 80px;
+            background: radial-gradient(circle, #FF1493 20%, transparent 70%);
+            opacity: 0.5;
+            animation: fadeInSplash 1s ease-in-out;
+        }
+
+        #destinationsList::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            right: -15px;
+            width: 60px;
+            height: 60px;
+            background: radial-gradient(circle, #00CED1 20%, transparent 70%);
+            opacity: 0.5;
+            animation: fadeInSplash 1.5s ease-in-out;
+        }
+
+        @keyframes fadeInSplash {
+            0% { opacity: 0; transform: scale(0); }
+            100% { opacity: 0.5; transform: scale(1); }
+        }
+
+        #destinationsList h2 {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 2.5em;
+            color: #1A8B9D;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #FFD700;
+            padding-bottom: 5px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+        }
+
+        .destination-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            animation: fadeInScale 0.5s ease-in-out;
+        }
+
+        @keyframes fadeInScale {
+            0% { opacity: 0; transform: scale(0.95); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        .destination-button {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8em;
+            color: #1A8B9D;
+            background: none;
+            border: none;
+            cursor: pointer;
+            position: relative;
+            padding-bottom: 8px;
+            transition: color 0.3s ease, transform 0.2s ease;
+        }
+
+        .destination-button:hover {
+            color: #FF6F61;
+            transform: scale(1.05);
+        }
+
         .destination-button::after {
             content: '';
             position: absolute;
@@ -131,162 +382,291 @@
             height: 3px;
             bottom: 0;
             left: 0;
-            background-color: #14b8a6;
+            background: linear-gradient(90deg, #FF1493, #FFD700);
             transition: width 0.3s ease;
         }
+
         .destination-button:hover::after {
             width: 100%;
         }
+
         .destination-button.active-button {
-            background-color: #14b8a6;
-            color: white;
-            animation: pulseGlow 2s infinite;
+            background: linear-gradient(90deg, #FF6F61, #FFD700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 2px 2px 5px #FF1493, -2px -2px 5px #00CED1;
+            animation: neonGlow 2s infinite alternate, pulse 2s infinite ease-in-out;
         }
-        /* Ripple effect on click */
-        .destination-button::before {
+
+        @keyframes neonGlow {
+            0% { text-shadow: 2px 2px 5px #FF1493, -2px -2px 5px #00CED1; }
+            100% { text-shadow: 2px 2px 10px #FF1493, -2px -2px 10px #00CED1; }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        /* Details Section with Graffiti Splash and Animation */
+        #details {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            max-width: 800px;
+            margin: 0 auto;
+            display: none;
+            animation: fadeInScale 0.5s ease-in-out;
+            border: 2px solid transparent;
+            animation: borderGlow 3s infinite ease-in-out;
+            position: relative;
+        }
+
+        #details::before {
             content: '';
             position: absolute;
-            width: 20px;
-            height: 20px;
-            background: rgba(20, 184, 166, 0.5);
-            border-radius: 50%;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) scale(0);
-            pointer-events: none;
+            top: -20px;
+            left: -20px;
+            width: 80px;
+            height: 80px;
+            background: radial-gradient(circle, #00CED1 20%, transparent 70%);
+            opacity: 0.5;
+            animation: fadeInSplash 1s ease-in-out;
         }
-        .destination-button.ripple::before {
-            animation: ripple 0.6s ease-out;
+
+        #details::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            right: -15px;
+            width: 60px;
+            height: 60px;
+            background: radial-gradient(circle, #FF1493 20%, transparent 70%);
+            opacity: 0.5;
+            animation: fadeInSplash 1.5s ease-in-out;
         }
-        /* Image styling with enhanced hover */
-        .destination-img {
-            width: 48px;
-            height: 48px;
-            object-fit: cover;
-            border-radius: 8px;
-            margin-right: 12px;
-            transition: transform 0.3s ease;
+
+        #details h2 {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 2.5em;
+            color: #1A8B9D;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #FFD700;
+            padding-bottom: 5px;
         }
-        .destination-img:hover {
-            transform: scale(1.2) rotate(5deg);
+
+        #details h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2em;
+            color: #FF6F61;
+            margin-bottom: 10px;
+            animation: fadeIn 0.8s ease-out;
         }
-        /* Details section with background transition */
-        #details {
-            transition: background-color 0.5s ease;
+
+        #details p {
+            font-size: 1em;
+            line-height: 1.6;
+            margin-bottom: 15px;
+            color: #333;
+            animation: fadeIn 0.8s ease-out;
         }
-        #details.visible {
-            background-color: #f0f9ff;
+
+        #details ul {
+            margin-top: 10px;
+            padding-left: 25px;
+            list-style-type: square;
+            color: #333;
+            animation: fadeIn 0.8s ease-out;
         }
-        /* Particle background */
-        #particles {
-            position: fixed;
-            top: 0;
-            left: 0;
+
+        #details ul li {
+            margin-bottom: 8px;
+        }
+
+        /* Footer */
+        footer {
+            margin-top: auto;
+            padding: 20px;
+            text-align: center;
+            font-size: 0.9em;
+            color: #fff;
+            background: rgba(0, 0, 0, 0.2);
             width: 100%;
-            height: 100%;
-            z-index: -1;
-            opacity: 0.3;
+        }
+
+        footer p {
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            nav ul {
+                gap: 10px;
+            }
+
+            nav ul li a {
+                font-size: 0.9em;
+                padding: 6px 12px;
+            }
+
+            .hero h1 {
+                font-size: 2.5em;
+            }
+
+            .hero p {
+                font-size: 1.1em;
+            }
+
+            #destinationsList, #details {
+                padding: 20px;
+                max-width: 90%;
+            }
+
+            .destination-button {
+                font-size: 1.5em;
+            }
+
+            .totoro {
+                width: 60px;
+                height: 60px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header h1 {
+                font-size: 2em;
+            }
+
+            .hero h1 {
+                font-size: 2em;
+            }
+
+            .hero p {
+                font-size: 1em;
+            }
+
+            nav ul li a {
+                font-size: 0.8em;
+            }
+
+            .destination-button {
+                font-size: 1.3em;
+            }
+
+            .totoro {
+                width: 50px;
+                height: 50px;
+            }
         }
     </style>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 </head>
-<body class="min-h-screen flex flex-col">
-    <!-- Particle Background -->
-    <canvas id="particles"></canvas>
+<body>
+    <div class="particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
 
-    <!-- Header -->
-    <header class="bg-teal-900 text-white py-4 shadow-lg sticky top-0 z-10">
-        <div class="container mx-auto flex justify-between items-center px-6">
-            <div>
-                <h1 class="text-4xl font-bold">Travel Planner</h1>
-                <p class="text-sm font-light">Journey Beyond, Plan with Ease</p>
-            </div>
-            <nav>
-                <ul class="flex space-x-8">
-                    <li><a href="#" class="text-lg nav-hover">Travel Planner</a></li>
-                    <li><a href="#" class="text-lg nav-hover">Top Destinations</a></li>
-                    <li><a href="#" class="text-lg nav-hover">About</a></li>
-                </ul>
-            </nav>
+    <div class="fireflies">
+        <div class="firefly"></div>
+        <div class="firefly"></div>
+        <div class="firefly"></div>
+        <div class="firefly"></div>
+    </div>
+
+    <div class="leaves">
+        <div class="leaf"></div>
+        <div class="leaf"></div>
+        <div class="leaf"></div>
+        <div class="leaf"></div>
+    </div>
+
+    <div class="totoro"></div>
+
+    <header>
+        <div>
+            <h1>Travel Planner</h1>
+            <p>Journey Beyond, Plan with Ease</p>
         </div>
+        <nav>
+            <ul>
+                <li><a href="#">Travel Planner</a></li>
+                <li><a href="#">Top Destinations</a></li>
+                <li><a href="#">About</a></li>
+            </ul>
+        </nav>
     </header>
 
     <div class="container mx-auto p-6 flex-grow">
         <!-- Hero Section -->
-        <div class="hero text-center py-12 mb-12 animate-shimmer">
-            <h1 class="text-6xl font-bold text-teal-800 mb-4 inline-block animate-typing">Top 10 Loved Destinations in India</h1>
-            <p class="text-xl text-gray-700 max-w-2xl mx-auto animate-float">Uncover the magic of India’s most cherished destinations, each offering a unique blend of culture, history, and natural beauty.</p>
+        <div class="hero">
+            <h1>Top 10 Loved Destinations in India</h1>
+            <p>Uncover the magic of India’s most cherished destinations, each offering a unique blend of culture, history, and natural beauty.</p>
         </div>
 
         <!-- Destinations List -->
-        <div class="bg-white p-10 rounded-2xl shadow-2xl mb-12 max-w-4xl mx-auto">
-            <h2 class="text-4xl font-semibold mb-8 text-teal-700">India’s Favorite Destinations</h2>
-            <div id="destinationsList" class="space-y-4">
-                <div class="animate-flipIn flex items-center">
-                    <img src="taj-mahal-placeholder.jpg" alt="Taj Mahal at sunrise with its white marble structure reflecting in the pool" class="destination-img">
-                    <button id="btn-TajMahalAgra" class="destination-button text-2xl font-bold text-teal-600 hover-glow" onclick="showDetails('Taj Mahal, Agra')">1. Taj Mahal, Agra</button>
-                </div>
-                <div class="animate-flipIn flex items-center" style="animation-delay: 0.2s;">
-                    <img src="jaipur-placeholder.jpg" alt="Amber Fort in Jaipur with its golden sandstone walls at sunset" class="destination-img">
-                    <button id="btn-Jaipur" class="destination-button text-2xl font-bold text-teal-600 hover-glow" onclick="showDetails('Jaipur')">2. Jaipur</button>
-                </div>
-                <div class="animate-flipIn flex items-center" style="animation-delay: 0.4s;">
-                    <img src="varanasi-placeholder.jpg" alt="Varanasi ghats at sunrise with boats on the Ganges River" class="destination-img">
-                    <button id="btn-Varanasi" class="destination-button text-2xl font-bold text-teal-600 hover-glow" onclick="showDetails('Varanasi')">3. Varanasi</button>
-                </div>
-                <div class="animate-flipIn flex items-center" style="animation-delay: 0.6s;">
-                    <img src="kerala-placeholder.jpg" alt="Kerala backwaters with a houseboat cruising through palm-fringed canals" class="destination-img">
-                    <button id="btn-Kerala" class="destination-button text-2xl font-bold text-teal-600 hover-glow" onclick="showDetails('Kerala')">4. Kerala</button>
-                </div>
-                <div class="animate-flipIn flex items-center" style="animation-delay: 0.8s;">
-                    <img src="goa-placeholder.jpg" alt="Palolem Beach in Goa with golden sands and turquoise waters at sunset" class="destination-img">
-                    <button id="btn-Goa" class="destination-button text-2xl font-bold text-teal-600 hover-glow" onclick="showDetails('Goa')">5. Goa</button>
-                </div>
-                <div class="animate-flipIn flex items-center" style="animation-delay: 1s;">
-                    <img src="udaipur-placeholder.jpg" alt="Lake Pichola in Udaipur with the City Palace reflecting on the water" class="destination-img">
-                    <button id="btn-Udaipur" class="destination-button text-2xl font-bold text-teal-600 hover-glow" onclick="showDetails('Udaipur')">6. Udaipur</button>
-                </div>
-                <div class="animate-flipIn flex items-center" style="animation-delay: 1.2s;">
-                    <img src="mysore-placeholder.jpg" alt="Mysore Palace illuminated with thousands of lights during Dussehra" class="destination-img">
-                    <button id="btn-Mysore" class="destination-button text-2xl font-bold text-teal-600 hover-glow" onclick="showDetails('Mysore')">7. Mysore</button>
-                </div>
-                <div class="animate-flipIn flex items-center" style="animation-delay: 1.4s;">
-                    <img src="ladakh-placeholder.jpg" alt="Pangong Lake in Ladakh with vibrant blue waters and snow-capped mountains" class="destination-img">
-                    <button id="btn-Ladakh" class="destination-button text-2xl font-bold text-teal-600 hover-glow" onclick="showDetails('Ladakh')">8. Ladakh</button>
-                </div>
-                <div class="animate-flipIn flex items-center" style="animation-delay: 1.6s;">
-                    <img src="cherrapunji-placeholder.jpg" alt="Nohkalikai Falls in Cherrapunji with mist and lush greenery" class="destination-img">
-                    <button id="btn-Cherrapunji" class="destination-button text-2xl font-bold text-teal-600 hover-glow" onclick="showDetails('Cherrapunji')">9. Cherrapunji</button>
-                </div>
-                <div class="animate-flipIn flex items-center" style="animation-delay: 1.8s;">
-                    <img src="darjeeling-placeholder.jpg" alt="Darjeeling tea plantations with views of Kanchenjunga at sunrise" class="destination-img">
-                    <button id="btn-Darjeeling" class="destination-button text-2xl font-bold text-teal-600 hover-glow" onclick="showDetails('Darjeeling')">10. Darjeeling</button>
-                </div>
+        <div id="destinationsList">
+            <h2>India’s Favorite Destinations</h2>
+            <div class="destination-item">
+                <button id="btn-TajMahalAgra" class="destination-button" onclick="showDetails('Taj Mahal, Agra')">1. Taj Mahal, Agra</button>
+            </div>
+            <div class="destination-item" style="animation-delay: 0.2s;">
+                <button id="btn-Jaipur" class="destination-button" onclick="showDetails('Jaipur')">2. Jaipur</button>
+            </div>
+            <div class="destination-item" style="animation-delay: 0.4s;">
+                <button id="btn-Varanasi" class="destination-button" onclick="showDetails('Varanasi')">3. Varanasi</button>
+            </div>
+            <div class="destination-item" style="animation-delay: 0.6s;">
+                <button id="btn-Kerala" class="destination-button" onclick="showDetails('Kerala')">4. Kerala</button>
+            </div>
+            <div class="destination-item" style="animation-delay: 0.8s;">
+                <button id="btn-Goa" class="destination-button" onclick="showDetails('Goa')">5. Goa</button>
+            </div>
+            <div class="destination-item" style="animation-delay: 1s;">
+                <button id="btn-Udaipur" class="destination-button" onclick="showDetails('Udaipur')">6. Udaipur</button>
+            </div>
+            <div class="destination-item" style="animation-delay: 1.2s;">
+                <button id="btn-Mysore" class="destination-button" onclick="showDetails('Mysore')">7. Mysore</button>
+            </div>
+            <div class="destination-item" style="animation-delay: 1.4s;">
+                <button id="btn-Ladakh" class="destination-button" onclick="showDetails('Ladakh')">8. Ladakh</button>
+            </div>
+            <div class="destination-item" style="animation-delay: 1.6s;">
+                <button id="btn-Cherrapunji" class="destination-button" onclick="showDetails('Cherrapunji')">9. Cherrapunji</button>
+            </div>
+            <div class="destination-item" style="animation-delay: 1.8s;">
+                <button id="btn-Darjeeling" class="destination-button" onclick="showDetails('Darjeeling')">10. Darjeeling</button>
             </div>
         </div>
 
         <!-- Details Section -->
-        <div id="details" class="bg-white p-10 rounded-2xl shadow-2xl max-w-4xl mx-auto hidden animate-zoomIn">
-            <h2 class="text-4xl font-semibold mb-8 text-teal-700 animate-fadeIn">Destination Details</h2>
+        <div id="details">
+            <h2>Destination Details</h2>
             <div id="destinationDetails">
-                <h3 class="text-3xl font-bold mb-4 text-gray-800 animate-fadeIn" style="animation-delay: 0.2s;"><span id="destName"></span></h3>
-                <p id="destDescription" class="text-gray-700 mb-8 leading-relaxed animate-fadeIn" style="animation-delay: 0.4s;"></p>
-                <h3 class="text-3xl font-bold mb-4 text-gray-800 animate-fadeIn" style="animation-delay: 0.6s;">Location</h3>
-                <p id="destLocation" class="text-gray-700 mb-8 animate-fadeIn" style="animation-delay: 0.8s;"></p>
-                <h3 class="text-3xl font-bold mb-4 text-gray-800 animate-fadeIn" style="animation-delay: 1s;">Best Time to Visit</h3>
-                <p id="destBestTime" class="text-gray-700 mb-8 animate-fadeIn" style="animation-delay: 1.2s;"></p>
-                <h3 class="text-3xl font-bold mb-4 text-gray-800 animate-fadeIn" style="animation-delay: 1.4s;">Top Places to Visit</h3>
-                <ul id="destAttractions" class="list-disc pl-6 text-gray-700 mb-8 animate-fadeIn" style="animation-delay: 1.6s;"></ul>
+                <h3><span id="destName"></span></h3>
+                <p id="destDescription"></p>
+                <h3>Location</h3>
+                <p id="destLocation"></p>
+                <h3>Best Time to Visit</h3>
+                <p id="destBestTime"></p>
+                <h3>Top Places to Visit</h3>
+                <ul id="destAttractions"></ul>
             </div>
         </div>
     </div>
 
-    <!-- Footer -->
-    <footer class="bg-teal-900 text-white py-8 mt-auto">
-        <div class="container mx-auto text-center">
-            <p class="text-xl mb-2 animate-wave">Travel Planner © 2025. All Rights Reserved.</p>
-            <p class="text-sm animate-wave">Created by Srinjay Ghosh, a passionate developer dedicated to making travel planning seamless and exciting.</p>
-        </div>
+    <footer>
+        <p>Travel Planner © 2025. All Rights Reserved.</p>
+        <p>Created by Srinjay Ghosh, a passionate developer dedicated to making travel planning seamless and exciting.</p>
     </footer>
 
     <script>
@@ -302,17 +682,13 @@
             const destAttractions = document.getElementById('destAttractions');
             const currentButton = document.getElementById(`btn-${destination.replace(/[^a-zA-Z0-9]/g, '')}`);
 
-            // Add ripple effect on click
-            currentButton.classList.add('ripple');
-
             // Toggle details visibility
-            if (detailsDiv.classList.contains('hidden') || destName.textContent !== destination) {
+            if (detailsDiv.style.display === 'none' || destName.textContent !== destination) {
                 // Show details section
-                detailsDiv.classList.remove('hidden');
-                detailsDiv.classList.add('visible');
-                detailsDiv.classList.remove('animate-zoomIn');
+                detailsDiv.style.display = 'block';
+                detailsDiv.classList.remove('fadeInScale');
                 void detailsDiv.offsetWidth; // Trigger reflow to restart animation
-                detailsDiv.classList.add('animate-zoomIn');
+                detailsDiv.classList.add('fadeInScale');
 
                 // Reset previous button style
                 if (lastClickedButton) {
@@ -338,7 +714,6 @@
                         response.attractions.forEach(attraction => {
                             const li = document.createElement('li');
                             li.textContent = attraction;
-                            li.classList.add('mb-2', 'hover:text-teal-600', 'transition-colors');
                             destAttractions.appendChild(li);
                         });
                     } else {
@@ -352,8 +727,7 @@
                 }
             } else {
                 // Hide details section
-                detailsDiv.classList.add('hidden');
-                detailsDiv.classList.remove('visible');
+                detailsDiv.style.display = 'none';
                 currentButton.classList.remove('active-button');
                 lastClickedButton = null;
             }
@@ -496,75 +870,6 @@
 
             return data;
         }
-
-        // Particle effect
-        const canvas = document.getElementById('particles');
-        const ctx = canvas.getContext('2d');
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-
-        const particlesArray = [];
-        const numberOfParticles = 50;
-
-        class Particle {
-            constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 5 + 1;
-                this.speedX = Math.random() * 2 - 1;
-                this.speedY = Math.random() * 2 - 1;
-            }
-            update() {
-                this.x += this.speedX;
-                this.y += this.speedY;
-                if (this.size > 0.2) this.size -= 0.01;
-                if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
-                if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
-            }
-            draw() {
-                ctx.fillStyle = 'rgba(20, 184, 166, 0.5)';
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
-            }
-        }
-
-        function init() {
-            for (let i = 0; i < numberOfParticles; i++) {
-                particlesArray.push(new Particle());
-            }
-        }
-
-        function animateParticles() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            for (let i = 0; i < particlesArray.length; i++) {
-                particlesArray[i].update();
-                particlesArray[i].draw();
-                if (particlesArray[i].size <= 0.2) {
-                    particlesArray.splice(i, 1);
-                    i--;
-                    particlesArray.push(new Particle());
-                }
-            }
-            requestAnimationFrame(animateParticles);
-        }
-
-        init();
-        animateParticles();
-
-        window.addEventListener('resize', () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        });
-
-        // Scroll-based background transition
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 100) {
-                document.body.classList.add('scrolled');
-            } else {
-                document.body.classList.remove('scrolled');
-            }
-        });
     </script>
 </body>
 </html>
